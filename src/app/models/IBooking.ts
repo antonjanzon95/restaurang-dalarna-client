@@ -1,10 +1,10 @@
 import { ITable } from './ITable';
 
 export interface IBooking {
-  firstName: String;
-  lastName: String;
-  email: String;
-  time: Number;
-  persons: Number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  time: number;
+  persons: number;
   table: ITable;
 }
