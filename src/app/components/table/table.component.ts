@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ITable } from 'src/app/models/ITable';
 
 @Component({
   selector: 'app-table',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent {
+  @Input() table: ITable | undefined;
 
+  
 }
