@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { TablesEffect } from './store/tables/tables.effects';
 import { BookingsComponent } from './components/bookings/bookings.component';
 import { BookingsReducer } from './store/bookings/bookings.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { BookingsEffects } from './store/bookings/bookings.effects';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { BookingsReducer } from './store/bookings/bookings.reducer';
     AppRoutingModule,
     StoreModule.forRoot({tables: tablesReducer, bookings: BookingsReducer}, {}),
     HttpClientModule,
-    EffectsModule.forRoot([TablesEffect]),
+    EffectsModule.forRoot([TablesEffect, BookingsEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],
   bootstrap: [AppComponent],

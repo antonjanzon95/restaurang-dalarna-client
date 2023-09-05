@@ -12,9 +12,9 @@ export class BookingsEffects {
     private actions$: Actions
   ) {}
 
-  getBookings$ = createEffect(
-    () => (
-      this.actions$.pipe(ofType(BookingsActions.getBookings)),
+  getBookings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BookingsActions.getBookings),
       concatMap(() =>
         this.bookingService.getBookings().pipe(
           map((bookings) => BookingsActions.getBookingsSuccess({ bookings })),

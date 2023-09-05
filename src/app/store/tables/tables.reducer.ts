@@ -3,6 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import { TablesActions } from './tables.actions';
 import { state } from '@angular/animations';
 import { ITable } from 'src/app/models/ITable';
+import { Status } from 'src/app/models/Status';
 
 export interface ITablesState {
   tables: ITable[] | null;
@@ -10,12 +11,7 @@ export interface ITablesState {
   status: Status
 }
 
-enum Status {
-  Idle,
-  Pending,
-  Success,
-  Error
-}
+
 
 export const initialState: ITablesState = {
   tables: null,
