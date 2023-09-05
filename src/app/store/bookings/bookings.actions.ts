@@ -11,4 +11,16 @@ export const BookingsActions = {
     '[Bookings] Get Bookings Success',
     props<{ bookings: IBooking[] }>()
   ),
+  makeBooking: createAction(
+    '[Booking Form] Make New Booking',
+    props<{ bookingDetails: IBooking }>()
+  ),
+  makeBookingFailure: createAction(
+    '[Booking Form] Make New Booking Failure',
+    props<{ error: string }>()
+  ),
+  makeBookingSuccess: createAction(
+    '[Booking Form] Make New Booking Success',
+    props<{ booking: IBooking }>()
+  ),
 };
