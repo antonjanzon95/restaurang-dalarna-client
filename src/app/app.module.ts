@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,8 +16,14 @@ import { BookingFormComponent } from './components/booking-form/booking-form.com
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BookingsEffects } from './store/bookings/bookings.effects';
+import { MatDialogModule } from '@angular/material/dialog';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       {}
     ),
     HttpClientModule,
-    EffectsModule.forRoot([TablesEffect]),
+    EffectsModule.forRoot([TablesEffect, BookingsEffects]),
     ReactiveFormsModule,
     FormsModule,
     MatDatepickerModule,
@@ -43,6 +49,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],
   bootstrap: [AppComponent],
