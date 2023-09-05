@@ -14,6 +14,12 @@ export class BookingService {
   }
 
   getBookings() {
-    return this.http.get<IBooking[]>('http://localhost:3000/bookings')
+    return this.http.get<IBooking[]>('http://localhost:3000/bookings');
+  }
+
+  newBooking(bookingDetails: IBooking) {
+    return this.http.post<IBooking>('http://localhost:3000/bookings/new', {
+      bookingDetails,
+    });
   }
 }
