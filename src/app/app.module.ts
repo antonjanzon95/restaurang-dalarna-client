@@ -11,16 +11,38 @@ import { EffectsModule } from '@ngrx/effects';
 import { TablesEffect } from './store/tables/tables.effects';
 import { BookingsComponent } from './components/bookings/bookings.component';
 import { BookingsReducer } from './store/bookings/bookings.reducer';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BookingFormComponent } from './components/booking-form/booking-form.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, TablesComponent, TableComponent, BookingsComponent],
+  declarations: [
+    AppComponent,
+    TablesComponent,
+    TableComponent,
+    BookingsComponent,
+    BookingFormComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({tables: tablesReducer, bookings: BookingsReducer}, {}),
+    StoreModule.forRoot(
+      { tables: tablesReducer, bookings: BookingsReducer },
+      {}
+    ),
     HttpClientModule,
     EffectsModule.forRoot([TablesEffect]),
+    ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

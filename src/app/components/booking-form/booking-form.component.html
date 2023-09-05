@@ -1,3 +1,24 @@
-<form>
+<form #bookingForm="ngForm" [formGroup]="bookingDetails" (ngSubmit)="onSubmit()"
+  class="flex flex-col items-center gap-2 w-[100vw]">
+  <label for="first-name" class="flex flex-col">
+    Förnamn:
+    <input type="text" formControlName="firstName" name="first-name" class="border-slate-600 border-2">
+  </label>
+  <label for="last-name" class="flex flex-col">
+    Efternamn:
+    <input type="text" formControlName="lastName" name="last-name" class="border-slate-600 border-2">
+  </label>
+  <label for="email" class="flex flex-col">
+    Mail:
+    <input type="text" formControlName="email" name="email" class="border-slate-600 border-2">
+  </label>
+  <mat-form-field color="accent">
+    <mat-label>Custom calendar color</mat-label>
+    <input formControlName="date" matInput [matDatepicker]="picker2">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+  </mat-form-field>
+  <button type="submit">Boka</button>
 
 </form>
