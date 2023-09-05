@@ -4,8 +4,8 @@ import { Observable, Subscription } from 'rxjs';
 import { ITable } from 'src/app/models/ITable';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { IAppState } from 'src/app/store/app.state';
-import { BookingActions } from 'src/app/store/booking/booking.actions';
-import { selectAllTables } from 'src/app/store/booking/booking.selector';
+import { TablesActions } from 'src/app/store/tables/tables.actions';
+import { selectAllTables } from 'src/app/store/tables/tables.selector';
 
 @Component({
   selector: 'app-tables',
@@ -16,6 +16,8 @@ export class TablesComponent implements OnInit {
   tables$ = this.store.select(selectAllTables)
   constructor(private store: Store<IAppState>) {}
   ngOnInit(): void {
-    this.store.dispatch(BookingActions.getBookings())
+    this.store.dispatch(TablesActions.getTables())
+    console.log(this.tables$);
+    
   }
 }

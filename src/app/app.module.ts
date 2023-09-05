@@ -6,19 +6,21 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { TablesComponent } from './components/tables/tables.component';
 import { TableComponent } from './components/table/table.component';
-import { bookingReducer } from './store/booking/booking.reducer';
+import { tablesReducer } from './store/tables/tables.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { BookingEffect } from './store/booking/booking.effects';
+import { TablesEffect } from './store/tables/tables.effects';
+import { BookingsComponent } from './components/bookings/bookings.component';
+import { BookingsReducer } from './store/bookings/bookings.reducer';
 
 
 @NgModule({
-  declarations: [AppComponent, TablesComponent, TableComponent],
+  declarations: [AppComponent, TablesComponent, TableComponent, BookingsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({bookings: bookingReducer}, {}),
+    StoreModule.forRoot({tables: tablesReducer, bookings: BookingsReducer}, {}),
     HttpClientModule,
-    EffectsModule.forRoot([BookingEffect]),
+    EffectsModule.forRoot([TablesEffect]),
   ],
   providers: [],
   bootstrap: [AppComponent],

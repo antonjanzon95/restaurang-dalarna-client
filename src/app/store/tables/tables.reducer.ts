@@ -1,10 +1,10 @@
 import { IBooking } from '../../models/IBooking';
 import { createReducer, on } from '@ngrx/store';
-import { BookingActions } from './booking.actions';
+import { TablesActions } from './tables.actions';
 import { state } from '@angular/animations';
 import { ITable } from 'src/app/models/ITable';
 
-export interface IBookingState {
+export interface ITablesState {
   tables: ITable[] | null;
   error: string | null;
   status: Status
@@ -17,24 +17,24 @@ enum Status {
   Error
 }
 
-export const initialState: IBookingState = {
+export const initialState: ITablesState = {
   tables: null,
   error: null,
   status: Status.Idle,
 };
 
-export const bookingReducer = createReducer(
+export const tablesReducer = createReducer(
   initialState,
-  on(BookingActions.getBookings, (state) => ({
+  on(TablesActions.getTables, (state) => ({
     ...state,
     status: Status.Pending
   })),
-  on(BookingActions.getBookingsFailure, (state, { error }) => ({
+  on(TablesActions.getTablesFailure, (state, { error }) => ({
     ...state,
     error,
     status: Status.Error
   })),
-  on(BookingActions.getBookingsSuccess, (state, { tables }) => ({
+  on(TablesActions.getTablesSuccess, (state, { tables }) => ({
     ...state,
     error: null,
     tables: tables,

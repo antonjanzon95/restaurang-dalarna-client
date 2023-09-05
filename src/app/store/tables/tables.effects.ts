@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { BookingActions } from './booking.actions';
+import { TablesActions } from './tables.actions';
 import { catchError, concatMap, map, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
-export class BookingEffect {
+export class TablesEffect {
   constructor(
     private bookingService: BookingService,
     private actions$: Actions
   ) {}
 
-  getBookings$ = createEffect(() =>
+  getTables$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(BookingActions.getBookings),
+      ofType(TablesActions.getTables),
       concatMap(() =>
         this.bookingService.getTables().pipe(
           map((tables) => ({
             tables,
-            type: BookingActions.getBookingsSuccess.type,
+            type: TablesActions.getTablesSuccess.type,
           })),
           catchError((err: HttpErrorResponse) =>
-            of(BookingActions.getBookingsFailure({ error: err.error.message }))
+            of(TablesActions.getTablesFailure({ error: err.error.message }))
           )
         )
       )

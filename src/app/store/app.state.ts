@@ -1,6 +1,6 @@
-import { IBookingState } from "./booking/booking.reducer";
+import { ITablesState } from "./tables/tables.reducer";
 
 export interface IAppState {
-  tables: IBookingState
+  tables: ITablesState
 }
 

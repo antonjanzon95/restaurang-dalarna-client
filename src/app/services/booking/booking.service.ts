@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IBooking } from 'src/app/models/IBooking';
 import { ITable } from 'src/app/models/ITable';
 
 @Injectable({
@@ -10,5 +11,9 @@ export class BookingService {
 
   getTables() {
     return this.http.get<ITable[]>('http://localhost:3000/tables');
+  }
+
+  getBookings() {
+    return this.http.get<IBooking[]>('http://localhost:3000/bookings')
   }
 }
