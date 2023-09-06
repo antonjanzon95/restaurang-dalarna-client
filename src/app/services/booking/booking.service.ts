@@ -44,4 +44,10 @@ export class BookingService {
       }
     );
   }
+
+  deleteBooking(bookingId: string) {
+    return this.http.delete(
+      `http://localhost:3000/bookings/delete/${bookingId}`
+    );
+  }
 }
