@@ -1,1 +1,5 @@
-<p>bookings works!</p>
+<ng-container *ngIf="bookings$ | async as bookings">
+  <div *ngFor="let booking of bookings">
+    <p>{{booking.firstName}}</p>
+  </div>
+</ng-container>

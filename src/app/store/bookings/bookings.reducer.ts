@@ -2,13 +2,6 @@ import { createReducer, on } from '@ngrx/store';
 import { IBooking } from 'src/app/models/IBooking';
 import { BookingsActions } from './bookings.actions';
 
-export enum BookingsStatus {
-  Idle = 'Idle',
-  Pending = 'Pending',
-  Success = 'Success',
-  Error = 'Error',
-}
-
 export interface IBookingsState {
   bookings: IBooking[];
   currentBooking: IBooking | null;
@@ -20,14 +13,14 @@ export const initialState: IBookingsState = {
   bookings: [],
   currentBooking: null,
   error: null,
-  status: BookingsStatus.Idle,
+  status: Status.Idle,
 };
 
 export const BookingsReducer = createReducer(
   initialState,
   on(BookingsActions.getBookings, (state) => ({
     ...state,
-    status: BookingsStatus.Pending,
+    status: Status.Pending,
   })),
   on(BookingsActions.getBookingsFailure, (state, action) => ({
     ...state,

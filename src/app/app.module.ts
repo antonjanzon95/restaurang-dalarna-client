@@ -25,6 +25,7 @@ import { BookingsEffects } from './store/bookings/bookings.effects';
 import { MatDialogModule } from '@angular/material/dialog';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+
 @NgModule({
   declarations: [
     AppComponent,
