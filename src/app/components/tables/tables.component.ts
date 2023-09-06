@@ -16,7 +16,7 @@ import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
 })
 export class TablesComponent implements OnInit {
   tables$ = this.store.select(selectAllTables);
-  selectedTime: string | undefined = 'fdsafdsa';
+  selectedTime: string = '';
   timeAndDate = new FormGroup({
     time: new FormControl(''),
     date: new FormControl(''),
@@ -26,7 +26,6 @@ export class TablesComponent implements OnInit {
   constructor(private store: Store<IAppState>, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.store.dispatch(TablesActions.getTables());
     this.store
       .pipe(select((state) => state.bookings.selectedTime))
       .subscribe((selectedTime) => {
@@ -35,7 +34,16 @@ export class TablesComponent implements OnInit {
           time: new Date(selectedTime).getHours().toString(),
           date: '9/8/2023',
         });
-        console.log(this.timeAndDate.value);
+        this.store.dispatch(
+          TablesActions.getTables({
+            time: setTime(
+              Number(this.timeAndDate.value.time),
+              this.timeAndDate.value.date as string
+            ),
+          })
+        );
+        console.log('Dispatched getTables');
+        
       });
   }
 
@@ -58,7 +66,13 @@ export class TablesComponent implements OnInit {
         newDate: this.timeAndDate.value.date as string,
       })
     );
-    this.store.dispatch(TablesActions.getTables());
-    // console.log('Changed', this.timeAndDate.value);
+    this.store.dispatch(
+      TablesActions.getTables({
+        time: setTime(
+          Number(this.timeAndDate.value.time),
+          this.timeAndDate.value.date as string
+        ),
+      })
+    );
   }
 }

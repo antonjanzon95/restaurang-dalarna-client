@@ -15,8 +15,8 @@ export class TablesEffect {
   getTables$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TablesActions.getTables),
-      concatMap(() =>
-        this.bookingService.getTables().pipe(
+      concatMap(({time}) =>
+        this.bookingService.getTables(time).pipe(
           map((tables) => ({
             tables,
             type: TablesActions.getTablesSuccess.type,

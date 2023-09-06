@@ -17,3 +17,8 @@ export const selectAllBookings = createSelector(
   selectBookingsState,
   (state: IBookingsState) => state.bookings
 );
+
+export const selectSelectedTime = createSelector(
+  selectBookingsState,
+  (bookingsState: IBookingsState) => bookingsState.selectedTime
+);
