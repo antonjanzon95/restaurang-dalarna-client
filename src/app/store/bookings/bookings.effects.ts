@@ -27,6 +27,68 @@ export class BookingsEffects {
     )
   );
 
+  getBookingsByDate$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BookingsActions.getBookingsByDate),
+      switchMap(({ date }) =>
+        this.bookingService.getBookingsByDate(date).pipe(
+          map((bookings) =>
+            BookingsActions.getBookingsByDateSuccess({ bookings })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              BookingsActions.getBookingsByDateFailure({
+                error: error.error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  // getBookingsByMonth$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(BookingsActions.getBookingsByMonth),
+  //     switchMap(({ monthNumber }) =>
+  //       this.bookingService.getBookingsByMonth(monthNumber).pipe(
+  //         map((bookings) =>
+  //           BookingsActions.getBookingsByMonthSuccess({ bookings })
+  //         ),
+  //         catchError((error: HttpErrorResponse) =>
+  //           of(
+  //             BookingsActions.getBookingsByMonthFailure({
+  //               error: error.error.message,
+  //             })
+  //           )
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
+  getBookingsByMonth$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BookingsActions.getBookingsByMonth),
+      switchMap((monthNumber) => {
+        console.log(monthNumber);
+        return this.bookingService
+          .getBookingsByMonth(monthNumber.monthNumber)
+          .pipe(
+            map((bookings) =>
+              BookingsActions.getBookingsByMonthSuccess({ bookings })
+            ),
+            catchError((error: HttpErrorResponse) =>
+              of(
+                BookingsActions.getBookingsByMonthFailure({
+                  error: error.error.message,
+                })
+              )
+            )
+          );
+      })
+    )
+  );
+
   newBooking$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookingsActions.makeBooking),
