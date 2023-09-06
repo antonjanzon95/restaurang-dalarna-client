@@ -4,7 +4,8 @@ export interface IBooking {
   firstName: string;
   lastName: string;
   email: string;
-  time: number;
+  date: string;
+  time: string;
   persons: number;
-  table: ITable;
+  tableNumber: number;
 }

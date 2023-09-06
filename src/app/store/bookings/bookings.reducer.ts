@@ -1,16 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
 import { IBooking } from 'src/app/models/IBooking';
 import { BookingsActions } from './bookings.actions';
-import { Status } from 'src/app/models/Status';
 
 export interface IBookingsState {
   bookings: IBooking[];
-  error: any;
-  status: Status;
+  currentBooking: IBooking | null;
+  error: string | null;
+  status: BookingsStatus;
 }
 
 export const initialState: IBookingsState = {
   bookings: [],
+  currentBooking: null,
   error: null,
   status: Status.Idle,
 };
@@ -24,7 +25,26 @@ export const BookingsReducer = createReducer(
   on(BookingsActions.getBookingsFailure, (state, action) => ({
     ...state,
     error: action.err,
-    status: Status.Error
+    status: BookingsStatus.Error,
   })),
-  on(BookingsActions.getBookingsSuccess, (state, action) => ({...state, bookings: action.bookings, error: null, status: Status.Success}))
+  on(BookingsActions.getBookingsSuccess, (state, action) => ({
+    ...state,
+    bookings: action.bookings,
+    error: null,
+    status: BookingsStatus.Success,
+  })),
+  on(BookingsActions.makeBooking, (state) => ({
+    ...state,
+    status: BookingsStatus.Pending,
+  })),
+  on(BookingsActions.makeBookingFailure, (state, { error }) => ({
+    ...state,
+    error: error,
+    status: BookingsStatus.Error,
+  })),
+  on(BookingsActions.makeBookingSuccess, (state, { booking }) => ({
+    ...state,
+    currentBooking: booking,
+    status: BookingsStatus.Success,
+  }))
 );

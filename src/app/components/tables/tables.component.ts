@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { ITable } from 'src/app/models/ITable';
-import { BookingService } from 'src/app/services/booking/booking.service';
 import { IAppState } from 'src/app/store/app.state';
 import { TablesActions } from 'src/app/store/tables/tables.actions';
 import { selectAllTables } from 'src/app/store/tables/tables.selector';
+import { BookingFormComponent } from '../booking-form/booking-form.component';
 
 @Component({
   selector: 'app-tables',
@@ -13,11 +12,19 @@ import { selectAllTables } from 'src/app/store/tables/tables.selector';
   styleUrls: ['./tables.component.css'],
 })
 export class TablesComponent implements OnInit {
-  tables$ = this.store.select(selectAllTables)
-  constructor(private store: Store<IAppState>) {}
+  tables$ = this.store.select(selectAllTables);
+
+  constructor(private store: Store<IAppState>, private dialog: MatDialog) {}
+
   ngOnInit(): void {
-    this.store.dispatch(TablesActions.getTables())
-    console.log(this.tables$);
-    
+    this.store.dispatch(TablesActions.getTables());
+  }
+
+  openDialog(tableNumber: number) {
+    const dialogRef = this.dialog.open(BookingFormComponent, {
+      data: { tableNumber: tableNumber },
+    });
+
+    dialogRef.afterClosed().subscribe(() => console.log('Hej'));
   }
 }

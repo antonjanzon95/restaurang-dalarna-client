@@ -1,10 +1,13 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { IBooking } from "src/app/models/IBooking";
-import { IBookingsState } from "./bookings.reducer";
-import { IAppState } from "../app.state";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { IBookingsState } from './bookings.reducer';
 
-// export const selectBookings = createFeatureSelector<IBooking[]>('bookings');
+export const selectBookingsState = (state: IAppState) => state.bookings;
 
-export const selectBookings = (state: IAppState) => state.bookings;
-
-export const selectAllBookings = createSelector(selectBookings, (state: IBookingsState) => state.bookings)
+export const selectBookingStatus = createSelector(
+  selectBookingsState,
+  (state: IBookingsState) => state.status
+);
+export const selectBookingError = createSelector(
+  selectBookingsState,
+  (state: IBookingsState) => state.error
+);
