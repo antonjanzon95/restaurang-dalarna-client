@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { BookingsActions } from './bookings.actions';
 import { catchError, concatMap, map, of, switchMap } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IBooking } from 'src/app/models/IBooking';
 
 @Injectable()
@@ -100,6 +100,24 @@ export class BookingsEffects {
           catchError((error: HttpErrorResponse) =>
             of(
               BookingsActions.makeBookingFailure({
+                error: error.error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  deleteBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BookingsActions.deleteBooking),
+      concatMap(({ bookingId }) =>
+        this.bookingService.deleteBooking(bookingId).pipe(
+          map(() => BookingsActions.deleteBookingSuccess()),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              BookingsActions.deleteBookingFailure({
                 error: error.error.message,
               })
             )

@@ -103,7 +103,21 @@ export const BookingsReducer = createReducer(
     currentBooking: booking,
     makeBookingStatus: Status.Success,
   })),
-
+  on(BookingsActions.deleteBooking, (state) => ({
+    ...state,
+    status: Status.Pending,
+  })),
+  on(BookingsActions.deleteBookingFailure, (state, { error }) => ({
+    ...state,
+    error: error,
+    status: Status.Error,
+  })),
+  on(BookingsActions.deleteBookingSuccess, (state) => ({
+    ...state,
+    error: null,
+    currentBooking: null,
+    status: Status.Success,
+  })),
   // Reset status
   on(BookingsActions.resetMakeBookingStatus, (state) => ({
     ...state,
