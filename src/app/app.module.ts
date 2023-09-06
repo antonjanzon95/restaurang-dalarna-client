@@ -23,8 +23,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookingsEffects } from './store/bookings/bookings.effects';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
+import { HomeComponent } from './views/home/home.component';
+import { AdminComponent } from './views/admin/admin.component';
+import { NavComponent } from './components/nav/nav.component';
+import { BookingsOverviewComponent } from './components/bookings-overview/bookings-overview.component';
+import { BookingsTableComponent } from './components/bookings-table/bookings-table.component';
+import { BookingInformationComponent } from './components/booking-information/booking-information.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +40,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     TableComponent,
     BookingsComponent,
     BookingFormComponent,
+    HomeComponent,
+    AdminComponent,
+    NavComponent,
+    BookingsOverviewComponent,
+    BookingsTableComponent,
+    BookingInformationComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +66,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     MatButtonModule,
     MatRadioModule,
     MatDialogModule,
+    MatTableModule,
+    MatSelectModule,
     MatSnackBarModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
