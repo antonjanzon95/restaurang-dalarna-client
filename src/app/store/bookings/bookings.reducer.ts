@@ -1,50 +1,57 @@
 import { createReducer, on } from '@ngrx/store';
 import { IBooking } from 'src/app/models/IBooking';
 import { BookingsActions } from './bookings.actions';
+import { Status } from 'src/app/models/Status';
 
 export interface IBookingsState {
   bookings: IBooking[];
   currentBooking: IBooking | null;
   error: string | null;
-  status: BookingsStatus;
+  getBookingsStatus: Status;
+  makeBookingStatus: Status;
 }
 
 export const initialState: IBookingsState = {
   bookings: [],
   currentBooking: null,
   error: null,
-  status: Status.Idle,
+  getBookingsStatus: Status.Idle,
+  makeBookingStatus: Status.Idle
 };
 
 export const BookingsReducer = createReducer(
   initialState,
   on(BookingsActions.getBookings, (state) => ({
     ...state,
-    status: Status.Pending,
+    getBookingsStatus: Status.Pending,
   })),
   on(BookingsActions.getBookingsFailure, (state, action) => ({
     ...state,
     error: action.err,
-    status: BookingsStatus.Error,
+    getBookingsStatus: Status.Error,
   })),
   on(BookingsActions.getBookingsSuccess, (state, action) => ({
     ...state,
     bookings: action.bookings,
     error: null,
-    status: BookingsStatus.Success,
+    getBookingsStatus: Status.Success,
   })),
   on(BookingsActions.makeBooking, (state) => ({
     ...state,
-    status: BookingsStatus.Pending,
+    makeBookingStatus: Status.Pending,
   })),
   on(BookingsActions.makeBookingFailure, (state, { error }) => ({
     ...state,
     error: error,
-    status: BookingsStatus.Error,
+    makeBookingStatus: Status.Error,
   })),
   on(BookingsActions.makeBookingSuccess, (state, { booking }) => ({
     ...state,
     currentBooking: booking,
-    status: BookingsStatus.Success,
+    makeBookingStatus: Status.Success,
+  })),
+  on(BookingsActions.resetMakeBookingStatus, (state) => ({
+    ...state,
+    makeBookingStatus: Status.Idle
   }))
 );

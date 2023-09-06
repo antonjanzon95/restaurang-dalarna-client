@@ -23,4 +23,7 @@ export const BookingsActions = {
     '[Booking Form] Make New Booking Success',
     props<{ booking: IBooking }>()
   ),
+  resetMakeBookingStatus: createAction(
+    '[Booking Form] Reset Make Booking Status'
+  )
 };

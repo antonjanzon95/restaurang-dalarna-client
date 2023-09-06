@@ -1,5 +1,3 @@
-import { ITable } from './ITable';
-
 export interface IBooking {
   firstName: string;
   lastName: string;

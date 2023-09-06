@@ -6,9 +6,9 @@ import { IAppState } from 'src/app/store/app.state';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
 import { safeString } from 'src/app/utilities/safeString';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { selectBookingStatus } from 'src/app/store/bookings/bookings.selector';
+import { selectMakeBookingStatus } from 'src/app/store/bookings/bookings.selector';
 import { Subject, take, takeUntil } from 'rxjs';
-import { BookingsStatus } from 'src/app/store/bookings/bookings.reducer';
+import { Status } from '../../models/Status';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -28,13 +28,14 @@ export class BookingFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store
-      .select(selectBookingStatus)
+      .select(selectMakeBookingStatus)
       .pipe(takeUntil(this.destroy$))
       .subscribe((status) => {
-        if (status === BookingsStatus.Success) {
+        if (status === Status.Success) {
           this.openSnackBar('Booking successfully made.');
           this.dialogRef.close();
-        } else if (status === BookingsStatus.Error) {
+          this.store.dispatch(BookingsActions.resetMakeBookingStatus());
+        } else if (status === Status.Error) {
           this.openSnackBar('Booking failed.');
         }
       });
