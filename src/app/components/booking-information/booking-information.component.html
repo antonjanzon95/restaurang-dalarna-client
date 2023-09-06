@@ -1,0 +1,14 @@
+<ng-container *ngIf="currentBooking">
+  <p>Name: {{currentBooking.firstName}} {{ currentBooking.lastName }}</p>
+  <p>Email: {{ currentBooking.email }}</p>
+  <p>Date: {{ date | date: 'shortDate' }}</p>
+  <p>Time: {{ currentBooking.time }}</p>
+  <p>Table: #{{ currentBooking.tableNumber }}</p>
+  <div class="flex flex-col gap-4">
+    <div class="flex gap-8">
+      <button mat-raised-button color="primary">Modify booking</button>
+      <button mat-raised-button color="warn">Remove booking</button>
+    </div>
+    <button mat-raised-button color="accent" (click)="resetCurrentBooking()" class="mx-auto">Back</button>
+  </div>
+</ng-container>
