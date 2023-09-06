@@ -31,19 +31,6 @@
     <input matInput type="number" formControlName="persons">
   </mat-form-field>
 
-  <mat-form-field color="accent">
-    <mat-label>Date</mat-label>
-    <input formControlName="date" matInput [matDatepicker]="picker2">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 color="primary"></mat-datepicker>
-  </mat-form-field>
-
-  <mat-radio-group class="flex flex-col" formControlName="time" aria-label="Time option">
-    <mat-radio-button value="18:00">18:00</mat-radio-button>
-    <mat-radio-button value="21:00">21:00</mat-radio-button>
-  </mat-radio-group>
-
   <button mat-raised-button color="primary" type="submit">Book</button>
 
   <button mat-raised-button color="warn" class="!absolute !left-4 !bottom-4" type="button"

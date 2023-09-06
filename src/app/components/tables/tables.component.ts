@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/store/app.state';
 import { TablesActions } from 'src/app/store/tables/tables.actions';
 import { selectAllTables } from 'src/app/store/tables/tables.selector';
 import { BookingFormComponent } from '../booking-form/booking-form.component';
+import { FormControl, FormGroup } from '@angular/forms';
+import { setTime } from 'src/app/utilities/setTime';
+import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
 
 @Component({
   selector: 'app-tables',
@@ -13,11 +16,27 @@ import { BookingFormComponent } from '../booking-form/booking-form.component';
 })
 export class TablesComponent implements OnInit {
   tables$ = this.store.select(selectAllTables);
+  selectedTime: string | undefined = 'fdsafdsa';
+  timeAndDate = new FormGroup({
+    time: new FormControl(''),
+    date: new FormControl(''),
+  });
+  @ViewChild('dateInput') dateInput: ElementRef<HTMLInputElement> | undefined;
 
   constructor(private store: Store<IAppState>, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(TablesActions.getTables());
+    this.store
+      .pipe(select((state) => state.bookings.selectedTime))
+      .subscribe((selectedTime) => {
+        this.selectedTime = new Date(selectedTime).toString();
+        this.timeAndDate.setValue({
+          time: new Date(selectedTime).getHours().toString(),
+          date: '9/8/2023',
+        });
+        console.log(this.timeAndDate.value);
+      });
   }
 
   openDialog(tableNumber: number) {
@@ -26,5 +45,20 @@ export class TablesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => console.log('Hej'));
+  }
+
+  logForm() {
+    console.log(this.timeAndDate.value);
+  }
+
+  handleInputChangeEvent() {
+    this.store.dispatch(
+      BookingsActions.setTime({
+        time: Number(this.timeAndDate.value.time),
+        newDate: this.timeAndDate.value.date as string,
+      })
+    );
+    this.store.dispatch(TablesActions.getTables());
+    // console.log('Changed', this.timeAndDate.value);
   }
 }

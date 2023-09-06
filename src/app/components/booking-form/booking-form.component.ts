@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { IBooking } from 'src/app/models/IBooking';
 import { IAppState } from 'src/app/store/app.state';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
@@ -85,3 +85,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 }
+
+// TODO: Flytta ut kalender och tid till tables.
+// Lägg till lyssning på detta så tables hämtas på nytt vid ändring.
+// Lägg till isBooked på tables-interface
+// Server: fixa check av bokade bord.
