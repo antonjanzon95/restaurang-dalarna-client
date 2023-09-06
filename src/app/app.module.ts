@@ -32,6 +32,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { BookingsOverviewComponent } from './components/bookings-overview/bookings-overview.component';
 import { BookingsTableComponent } from './components/bookings-table/bookings-table.component';
 import { BookingInformationComponent } from './components/booking-information/booking-information.component';
+import { DeleteCheckComponent } from './components/delete-check/delete-check.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { BookingInformationComponent } from './components/booking-information/bo
     BookingsOverviewComponent,
     BookingsTableComponent,
     BookingInformationComponent,
+    DeleteCheckComponent,
   ],
   imports: [
     BrowserModule,
