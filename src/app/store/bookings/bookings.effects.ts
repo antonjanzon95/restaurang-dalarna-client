@@ -5,12 +5,16 @@ import { BookingsActions } from './bookings.actions';
 import { catchError, concatMap, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IBooking } from 'src/app/models/IBooking';
+import { IAppState } from '../app.state';
+import { Store } from '@ngrx/store';
+import { TablesActions } from '../tables/tables.actions';
 
 @Injectable()
 export class BookingsEffects {
   constructor(
     private bookingService: BookingService,
-    private actions$: Actions
+    private actions$: Actions,
+    private store: Store<IAppState>
   ) {}
 
   getBookings$ = createEffect(() =>
@@ -94,9 +98,10 @@ export class BookingsEffects {
       ofType(BookingsActions.makeBooking),
       concatMap(({ bookingDetails }) =>
         this.bookingService.newBooking(bookingDetails).pipe(
-          map((response) =>
-            BookingsActions.makeBookingSuccess({ booking: response })
-          ),
+          map((response) => {
+            this.store.dispatch(TablesActions.getTables());
+            return BookingsActions.makeBookingSuccess({ booking: response });
+          }),
           catchError((error: HttpErrorResponse) =>
             of(
               BookingsActions.makeBookingFailure({
