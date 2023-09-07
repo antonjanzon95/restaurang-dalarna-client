@@ -7,3 +7,7 @@ export interface IBooking {
   persons: number;
   tableNumber: number;
 }
+
+export interface IBookingResponse extends IBooking {
+  _id: string;
+}
