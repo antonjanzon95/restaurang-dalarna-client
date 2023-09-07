@@ -8,7 +8,6 @@ import { BookingFormComponent } from '../booking-form/booking-form.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { setTime } from 'src/app/utilities/setTime';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
-import { selectSelectedTime } from 'src/app/store/bookings/bookings.selector';
 
 @Component({
   selector: 'app-tables',
@@ -17,31 +16,16 @@ import { selectSelectedTime } from 'src/app/store/bookings/bookings.selector';
 })
 export class TablesComponent implements OnInit {
   tables$ = this.store.select(selectAllTables);
-  // selectedTime: string | Date = new Date(setTime(18));
   timeAndDate = new FormGroup({
     time: new FormControl(''),
-    date: new FormControl(''),
+    date: new FormControl(setTime(18)),
   });
-  @ViewChild('dateInput') dateInput: ElementRef<HTMLInputElement> | undefined;
 
   constructor(private store: Store<IAppState>, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.store
-      .pipe(select((state) => state.bookings.selectedTime))
-      .subscribe((selectedTime) => {
-        // this.selectedTime = selectedTime
-        this.timeAndDate.setValue({
-          time: new Date(selectedTime).getHours().toString(),
-          date: '9/8/2023',
-        });
-        this.store.dispatch(
-          TablesActions.getTables({
-            time: selectedTime,
-          })
-        );
-        console.log('Dispatched getTables');
-      });
+    this.store.dispatch(TablesActions.getTables());
+    console.log('Dispatched getTables');
   }
 
   openDialog(tableNumber: number) {
@@ -57,18 +41,12 @@ export class TablesComponent implements OnInit {
   }
 
   handleInputChangeEvent() {
+    console.log('timeAndDate: ', this.timeAndDate.value);
+    
     this.store.dispatch(
       BookingsActions.setTime({
         time: Number(this.timeAndDate.value.time),
-        newDate: this.timeAndDate.value.date as string,
-      })
-    );
-    this.store.dispatch(
-      TablesActions.getTables({
-        time: setTime(
-          Number(this.timeAndDate.value.time),
-          this.timeAndDate.value.date as string
-        ),
+        newDate: this.timeAndDate.value.date!
       })
     );
   }

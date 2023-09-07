@@ -3,7 +3,7 @@ import { IBooking } from 'src/app/models/IBooking';
 import { ITable } from 'src/app/models/ITable';
 
 export const TablesActions = {
-  getTables: createAction('[Booking Modal] Get Tables', props<{time: string}>()),
+  getTables: createAction('[Booking Modal] Get Tables'),
   getTablesFailure: createAction(
     '[Booking Modal] Get Tables Failure',
     props<{ error: string }>()

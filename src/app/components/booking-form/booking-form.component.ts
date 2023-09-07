@@ -6,7 +6,7 @@ import { IAppState } from 'src/app/store/app.state';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
 import { safeString } from 'src/app/utilities/safeString';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { selectMakeBookingStatus } from 'src/app/store/bookings/bookings.selector';
+import { selectMakeBookingStatus, selectSelectedTime } from 'src/app/store/bookings/bookings.selector';
 import { Subject, take, takeUntil } from 'rxjs';
 import { Status } from '../../models/Status';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BookingFormComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
+  selectedTime = ''
 
   constructor(
     private store: Store<IAppState>,
@@ -39,6 +40,7 @@ export class BookingFormComponent implements OnInit, OnDestroy {
           this.openSnackBar('Booking failed.');
         }
       });
+      this.store.select(selectSelectedTime).pipe().subscribe((selectedTime) => this.selectedTime = selectedTime)
   }
 
   ngOnDestroy(): void {
@@ -53,8 +55,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    date: new FormControl(new Date().toString(), Validators.required),
-    time: new FormControl('', Validators.required),
+    // date: new FormControl(new Date().toString(), Validators.required),
+    // time: new FormControl('', Validators.required),
     persons: new FormControl(0, Validators.required),
   });
 
@@ -64,16 +66,16 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     const firstName = safeString(this.bookingDetails.value.firstName);
     const lastName = safeString(this.bookingDetails.value.lastName);
     const email = safeString(this.bookingDetails.value.email);
-    const date = safeString(this.bookingDetails.value.date).toString();
-    const time = safeString(this.bookingDetails.value.time);
+    // const date = safeString(this.bookingDetails.value.date).toString();
+    // const time = safeString(this.bookingDetails.value.time);
     const persons = Number(this.bookingDetails.value.persons);
 
     const bookingDetails: IBooking = {
       firstName,
       lastName,
       email,
-      date,
-      time,
+      // date,
+      time: this.selectedTime,
       persons,
       tableNumber: this.data.tableNumber,
     };

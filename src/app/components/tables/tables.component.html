@@ -1,13 +1,13 @@
 <form action="" [formGroup]="timeAndDate">
   <mat-form-field color="accent">
     <mat-label>Date</mat-label>
-    <input formControlName="date" #dateInput matInput [matDatepicker]="picker2" (input)="handleInputChangeEvent()">
+    <input formControlName="date" #dateInput matInput [matDatepicker]="picker2" (dateChange)="handleInputChangeEvent()">
     <mat-hint>MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
     <mat-datepicker #picker2 color="primary"></mat-datepicker>
   </mat-form-field>
 
-  <mat-radio-group class="flex flex-col" formControlName="time" aria-label="Time option" (input)="handleInputChangeEvent()">
+  <mat-radio-group class="flex flex-col" formControlName="time" aria-label="Time option" (change)="handleInputChangeEvent()">
     <mat-radio-button value="18">18:00</mat-radio-button>
     <mat-radio-button value="21">21:00</mat-radio-button>
   </mat-radio-group>
@@ -15,6 +15,6 @@
 <button (click)="logForm()">LOG</button>
 <div class="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 place-items-center mx-auto gap-8"
   *ngIf="tables$ | async as tables">
-  <app-table *ngFor="let table of tables" class="w-72 border-2 rounded-lg h-[150px] relative grid place-items-center" [class]="table.isBooked ? 'bg-red-600' : 'bg-green-500'"
-    [table]="table" (click)="openDialog(table.tableNumber)"></app-table>
+  <app-table *ngFor="let table of tables" class="w-72 border-2 rounded-lg h-[150px] relative grid place-items-center" [class]="table.isBooked ? 'bg-red-600 cursor-default' : 'bg-green-500 cursor-pointer'"
+    [table]="table" (click)="!table.isBooked && openDialog(table.tableNumber)"></app-table>
 </div>
