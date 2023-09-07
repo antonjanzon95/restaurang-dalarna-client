@@ -4,4 +4,5 @@ export interface ITable {
   _id: string;
   tableNumber: number;
   bookings: IBooking[];
+  isBooked: boolean;
 }

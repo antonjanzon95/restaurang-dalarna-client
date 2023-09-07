@@ -81,4 +81,8 @@ export const BookingsActions = {
   resetMakeBookingStatus: createAction(
     '[Booking Form] Reset Make Booking Status'
   ),
+  setTime: createAction(
+    '[Tables] Set Time',
+    props<{ time: number; newDate?: string }>()
+  ),
 };

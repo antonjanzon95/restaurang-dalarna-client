@@ -9,8 +9,8 @@ import { ITable } from 'src/app/models/ITable';
 export class BookingService {
   constructor(private http: HttpClient) {}
 
-  getTables() {
-    return this.http.get<ITable[]>('http://localhost:3000/tables');
+  getTables(time: string) {
+    return this.http.post<ITable[]>('http://localhost:3000/tables', { time });
   }
 
   getBookings() {

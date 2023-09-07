@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { IBooking, IBookingResponse } from 'src/app/models/IBooking';
 import { BookingsActions } from './bookings.actions';
 import { Status } from 'src/app/models/Status';
+import { setTime } from 'src/app/utilities/setTime';
 
 export interface IBookingsState {
   bookings: IBookingResponse[];
@@ -9,6 +10,7 @@ export interface IBookingsState {
   error: string | null;
   getBookingsStatus: Status;
   makeBookingStatus: Status;
+  selectedTime: string;
 }
 
 export const initialState: IBookingsState = {
@@ -17,6 +19,7 @@ export const initialState: IBookingsState = {
   error: null,
   getBookingsStatus: Status.Idle,
   makeBookingStatus: Status.Idle,
+  selectedTime: setTime(18),
 };
 
 export const BookingsReducer = createReducer(
@@ -122,5 +125,14 @@ export const BookingsReducer = createReducer(
   on(BookingsActions.resetMakeBookingStatus, (state) => ({
     ...state,
     makeBookingStatus: Status.Idle,
-  }))
+  })),
+  on(BookingsActions.setTime, (state, { time, newDate }) => {
+    if (newDate) return { ...state, selectedTime: setTime(time, newDate) };
+    else {
+      return {
+        ...state,
+        selectedTime: setTime(time),
+      };
+    }
+  })
 );
