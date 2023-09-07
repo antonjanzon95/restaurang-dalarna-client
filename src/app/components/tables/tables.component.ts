@@ -8,6 +8,7 @@ import { BookingFormComponent } from '../booking-form/booking-form.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { setTime } from 'src/app/utilities/setTime';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
+import { selectSelectedTime } from 'src/app/store/bookings/bookings.selector';
 
 @Component({
   selector: 'app-tables',
@@ -16,7 +17,7 @@ import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
 })
 export class TablesComponent implements OnInit {
   tables$ = this.store.select(selectAllTables);
-  selectedTime: string = '';
+  // selectedTime: string | Date = new Date(setTime(18));
   timeAndDate = new FormGroup({
     time: new FormControl(''),
     date: new FormControl(''),
@@ -29,21 +30,17 @@ export class TablesComponent implements OnInit {
     this.store
       .pipe(select((state) => state.bookings.selectedTime))
       .subscribe((selectedTime) => {
-        this.selectedTime = new Date(selectedTime).toString();
+        // this.selectedTime = selectedTime
         this.timeAndDate.setValue({
           time: new Date(selectedTime).getHours().toString(),
           date: '9/8/2023',
         });
         this.store.dispatch(
           TablesActions.getTables({
-            time: setTime(
-              Number(this.timeAndDate.value.time),
-              this.timeAndDate.value.date as string
-            ),
+            time: selectedTime,
           })
         );
         console.log('Dispatched getTables');
-        
       });
   }
 
