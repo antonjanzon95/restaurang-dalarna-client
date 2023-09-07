@@ -1,13 +1,13 @@
 <form action="" [formGroup]="timeAndDate">
   <mat-form-field color="accent">
     <mat-label>Date</mat-label>
-    <input formControlName="date" #dateInput matInput [matDatepicker]="picker2" (input)="handleInputChangeEvent()">
+    <input formControlName="date" #dateInput matInput [matDatepicker]="picker2" (dateChange)="handleInputChangeEvent()">
     <mat-hint>MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
     <mat-datepicker #picker2 color="primary"></mat-datepicker>
   </mat-form-field>
 
-  <mat-radio-group class="flex flex-col" formControlName="time" aria-label="Time option" (input)="handleInputChangeEvent()">
+  <mat-radio-group class="flex flex-col" formControlName="time" aria-label="Time option" (change)="handleInputChangeEvent()">
     <mat-radio-button value="18">18:00</mat-radio-button>
     <mat-radio-button value="21">21:00</mat-radio-button>
   </mat-radio-group>

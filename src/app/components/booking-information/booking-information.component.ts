@@ -18,7 +18,7 @@ export class BookingInformationComponent implements OnInit {
   constructor(private store: Store<IAppState>, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    if (this.currentBooking) this.date = new Date(this.currentBooking.date);
+    // if (this.currentBooking) this.date = new Date(this.currentBooking.date);
   }
 
   resetCurrentBooking() {
