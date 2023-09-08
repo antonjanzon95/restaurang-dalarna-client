@@ -59,4 +59,21 @@ export class TablesEffect {
       )
     )
   );
+
+//   getTablesAfterBooking$ = createEffect(() =>
+//     this.actions$.pipe(
+//       ofType(BookingsActions.makeBooking),
+//       concatMap(() =>
+//         this.bookingService.getTables(this.selectedTime).pipe(
+//           map((tables) => ({
+//             tables,
+//             type: TablesActions.getTablesSuccess.type,
+//           })),
+//           catchError((err: HttpErrorResponse) =>
+//             of(TablesActions.getTablesFailure({ error: err.error.message }))
+//           )
+//         )
+//       )
+//     )
+//   );
 }

@@ -33,6 +33,7 @@ import { BookingsOverviewComponent } from './components/bookings-overview/bookin
 import { BookingsTableComponent } from './components/bookings-table/bookings-table.component';
 import { BookingInformationComponent } from './components/booking-information/booking-information.component';
 import { DeleteCheckComponent } from './components/delete-check/delete-check.component';
+import { BookingTimeInputComponent } from './components/booking-time-input/booking-time-input.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { DeleteCheckComponent } from './components/delete-check/delete-check.com
     BookingsTableComponent,
     BookingInformationComponent,
     DeleteCheckComponent,
+    BookingTimeInputComponent,
   ],
   imports: [
     BrowserModule,
