@@ -12,16 +12,14 @@ import { setTime } from 'src/app/utilities/setTime';
 })
 export class BookingTimeInputComponent {
   constructor(private store: Store<IAppState>) {}
-  timeAndDate = new FormGroup({
-    time: new FormControl(new Date()),
-    date: new FormControl(setTime(18)),
-  });
+  time = new FormControl(18)
+  date = new FormControl<Date>(new Date())
 
   handleInputChangeEvent() {
     this.store.dispatch(
       BookingsActions.setTime({
-        time: Number(this.timeAndDate.value.time),
-        newDate: this.timeAndDate.value.date!,
+        time: Number(this.time.value),
+        newDate: this.date.value,
       })
     );
   }

@@ -2,7 +2,7 @@ import { APP_BOOTSTRAP_LISTENER, Injectable, OnInit } from '@angular/core';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TablesActions } from './tables.actions';
-import { catchError, concatMap, map, of, withLatestFrom } from 'rxjs';
+import { catchError, concatMap, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
 import { selectSelectedTime } from '../bookings/bookings.selector';
@@ -46,7 +46,7 @@ export class TablesEffect {
   getTablesAfterSetTime$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookingsActions.setTime),
-      concatMap(() =>
+      switchMap(() =>
         this.bookingService.getTables(this.selectedTime).pipe(
           map((tables) => ({
             tables,
