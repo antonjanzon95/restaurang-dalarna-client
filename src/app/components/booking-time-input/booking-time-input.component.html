@@ -1,4 +1,4 @@
-<form>
+<form class="flex flex-row mb-16">
   <mat-form-field color="accent">
     <mat-label>Datum</mat-label>
     <input [formControl]="date" #dateInput matInput [matDatepicker]="picker2" (dateChange)="handleInputChangeEvent()">
@@ -7,7 +7,7 @@
     <mat-datepicker #picker2 color="primary"></mat-datepicker>
   </mat-form-field>
 
-  <mat-radio-group class="flex flex-col" [formControl]="time" aria-label="Time option"
+  <mat-radio-group class="flex flex-row items-center m-2" [formControl]="time" aria-label="Time option"
     (change)="handleInputChangeEvent()">
     <mat-radio-button value="18" [checked]="true">18:00</mat-radio-button>
     <mat-radio-button value="21">21:00</mat-radio-button>
