@@ -7,5 +7,5 @@ import { routes } from 'src/app/app-routing.module';
   styleUrls: ['./nav.component.css'],
 })
 export class NavComponent {
-  public navRoutes = routes;
+  public navRoutes = routes.filter((route) => route.path !== 'booking-success');
 }

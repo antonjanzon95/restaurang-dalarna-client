@@ -100,6 +100,9 @@ export class BookingsEffects {
         this.bookingService.newBooking(bookingDetails).pipe(
           map((response) => {
             this.store.dispatch(TablesActions.getTables());
+            this.store.dispatch(
+              BookingsActions.setLatestBooking({ bookingDetails })
+            );
             return BookingsActions.makeBookingSuccess({ booking: response });
           }),
           catchError((error: HttpErrorResponse) =>

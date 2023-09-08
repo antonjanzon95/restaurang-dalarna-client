@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +34,12 @@ import { BookingsTableComponent } from './components/bookings-table/bookings-tab
 import { BookingInformationComponent } from './components/booking-information/booking-information.component';
 import { DeleteCheckComponent } from './components/delete-check/delete-check.component';
 import { BookingTimeInputComponent } from './components/booking-time-input/booking-time-input.component';
+import { BookingSuccessComponent } from './views/booking-success/booking-success.component';
+import { BookingSummaryComponent } from './components/booking-summary/booking-summary.component';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localeSv from '@angular/common/locales/sv';
+
+registerLocaleData(localeSv);
 
 @NgModule({
   declarations: [
@@ -50,6 +56,8 @@ import { BookingTimeInputComponent } from './components/booking-time-input/booki
     BookingInformationComponent,
     DeleteCheckComponent,
     BookingTimeInputComponent,
+    BookingSuccessComponent,
+    BookingSummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +83,7 @@ import { BookingTimeInputComponent } from './components/booking-time-input/booki
     MatSnackBarModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
-  providers: [],
+  providers: [DatePipe, { provide: LOCALE_ID, useValue: 'sv-SE' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,8 +1,8 @@
 <form>
   <mat-form-field color="accent">
-    <mat-label>Date</mat-label>
+    <mat-label>Datum</mat-label>
     <input [formControl]="date" #dateInput matInput [matDatepicker]="picker2" (dateChange)="handleInputChangeEvent()">
-    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-hint>ÅÅÅÅ-MM-DD</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
     <mat-datepicker #picker2 color="primary"></mat-datepicker>
   </mat-form-field>
