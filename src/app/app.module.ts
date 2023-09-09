@@ -33,6 +33,10 @@ import { BookingsOverviewComponent } from './components/bookings-overview/bookin
 import { BookingsTableComponent } from './components/bookings-table/bookings-table.component';
 import { BookingInformationComponent } from './components/booking-information/booking-information.component';
 import { DeleteCheckComponent } from './components/delete-check/delete-check.component';
+import { environment } from 'src/environments/environment.development';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -72,6 +76,9 @@ import { DeleteCheckComponent } from './components/delete-check/delete-check.com
     MatSelectModule,
     MatSnackBarModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
   ],
   providers: [],
   bootstrap: [AppComponent],
