@@ -6,10 +6,14 @@ import { IAppState } from 'src/app/store/app.state';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
 import { safeString } from 'src/app/utilities/safeString';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { selectMakeBookingStatus, selectSelectedTime } from 'src/app/store/bookings/bookings.selector';
+import {
+  selectMakeBookingStatus,
+  selectSelectedTime,
+} from 'src/app/store/bookings/bookings.selector';
 import { Subject, take, takeUntil } from 'rxjs';
 import { Status } from '../../models/Status';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TablesActions } from 'src/app/store/tables/tables.actions';
 
 @Component({
   selector: 'app-booking-form',
@@ -18,7 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BookingFormComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  selectedTime = ''
+  selectedTime = '';
 
   constructor(
     private store: Store<IAppState>,
@@ -40,7 +44,10 @@ export class BookingFormComponent implements OnInit, OnDestroy {
           this.openSnackBar('Booking failed.');
         }
       });
-      this.store.select(selectSelectedTime).pipe().subscribe((selectedTime) => this.selectedTime = selectedTime)
+    this.store
+      .select(selectSelectedTime)
+      .pipe()
+      .subscribe((selectedTime) => (this.selectedTime = selectedTime));
   }
 
   ngOnDestroy(): void {
@@ -82,13 +89,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(BookingsActions.makeBooking({ bookingDetails }));
   }
-// 09/03/2023
+
   onNoClick() {
     this.dialogRef.close();
   }
 }
-
-// TODO: Flytta ut kalender och tid till tables.
-// Lägg till lyssning på detta så tables hämtas på nytt vid ändring.
-// Lägg till isBooked på tables-interface
-// Server: fixa check av bokade bord.

@@ -40,6 +40,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { userEffects } from './store/user/user.effects';
 import { userReducer } from './store/user/user.reducer';
+import { BookingTimeInputComponent } from './components/booking-time-input/booking-time-input.component';
 
 @NgModule({
   declarations: [

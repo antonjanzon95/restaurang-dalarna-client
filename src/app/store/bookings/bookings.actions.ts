@@ -83,6 +83,6 @@ export const BookingsActions = {
   ),
   setTime: createAction(
     '[Tables] Set Time',
-    props<{ time: number; newDate?: string }>()
+    props<{ time: number; newDate?: Date | null}>()
   ),
 };
