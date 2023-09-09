@@ -34,9 +34,12 @@ import { BookingsTableComponent } from './components/bookings-table/bookings-tab
 import { BookingInformationComponent } from './components/booking-information/booking-information.component';
 import { DeleteCheckComponent } from './components/delete-check/delete-check.component';
 import { environment } from 'src/environments/environment.development';
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+import { userEffects } from './store/user/user.effects';
+import { userReducer } from './store/user/user.reducer';
 
 @NgModule({
   declarations: [
@@ -52,16 +55,17 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
     BookingsTableComponent,
     BookingInformationComponent,
     DeleteCheckComponent,
+    AdminLoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(
-      { tables: tablesReducer, bookings: BookingsReducer },
+      { tables: tablesReducer, bookings: BookingsReducer, user: userReducer },
       {}
     ),
     HttpClientModule,
-    EffectsModule.forRoot([TablesEffect, BookingsEffects]),
+    EffectsModule.forRoot([TablesEffect, BookingsEffects, userEffects]),
     ReactiveFormsModule,
     FormsModule,
     MatDatepickerModule,
@@ -76,9 +80,9 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
     MatSelectModule,
     MatSnackBarModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireStorageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
