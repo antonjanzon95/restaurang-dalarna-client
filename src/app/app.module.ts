@@ -57,6 +57,7 @@ import { BookingTimeInputComponent } from './components/booking-time-input/booki
     BookingInformationComponent,
     DeleteCheckComponent,
     AdminLoginComponent,
+    BookingTimeInputComponent,
   ],
   imports: [
     BrowserModule,
