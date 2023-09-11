@@ -1,0 +1,13 @@
+<mat-sidenav-container class="height">
+  <mat-sidenav #sidenav opened mode="side" class="!w-[200px]">
+    <mat-nav-list class="text-center">
+      <mat-list-item *ngFor="let route of routes">
+        <a [routerLink]="route.path" routerLinkActive="font-semibold" class="w-full h-full">{{route.name}}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

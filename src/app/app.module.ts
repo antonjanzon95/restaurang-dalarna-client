@@ -13,18 +13,7 @@ import { BookingsComponent } from './components/bookings/bookings.component';
 import { BookingsReducer } from './store/bookings/bookings.reducer';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BookingFormComponent } from './components/booking-form/booking-form.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatButtonModule } from '@angular/material/button';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookingsEffects } from './store/bookings/bookings.effects';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-import { MatSelectModule } from '@angular/material/select';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HomeComponent } from './views/home/home.component';
 import { AdminComponent } from './views/admin/admin.component';
@@ -41,6 +30,11 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { userEffects } from './store/user/user.effects';
 import { userReducer } from './store/user/user.reducer';
 import { BookingTimeInputComponent } from './components/booking-time-input/booking-time-input.component';
+import { BookingsNavComponent } from './components/bookings-nav/bookings-nav.component';
+import { BookingsStatisticsComponent } from './components/bookings-statistics/bookings-statistics.component';
+import { AdminSidenavComponent } from './components/admin-sidenav/admin-sidenav.component';
+import { SharedMaterialModule } from './shared-material/shared-material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -58,6 +52,9 @@ import { BookingTimeInputComponent } from './components/booking-time-input/booki
     DeleteCheckComponent,
     AdminLoginComponent,
     BookingTimeInputComponent,
+    BookingsNavComponent,
+    BookingsStatisticsComponent,
+    AdminSidenavComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,21 +67,12 @@ import { BookingTimeInputComponent } from './components/booking-time-input/booki
     EffectsModule.forRoot([TablesEffect, BookingsEffects, userEffects]),
     ReactiveFormsModule,
     FormsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatRadioModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSelectModule,
-    MatSnackBarModule,
+    SharedMaterialModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireStorageModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

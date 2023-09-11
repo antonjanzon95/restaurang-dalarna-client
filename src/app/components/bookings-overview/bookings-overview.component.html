@@ -1,30 +1,10 @@
 <section class="flex flex-col items-center">
-  <h2>Display by month or date</h2>
-
-  <nav class="flex gap-8 relative">
-    <mat-form-field>
-      <mat-label>Month</mat-label>
-      <mat-select (selectionChange)="fetchBookingsByMonth($event)">
-        <mat-option *ngFor="let month of months; let index = index" [value]="index">
-          {{month}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <p class="grid place-items-center font-bold text-lg">{{'or' | uppercase}}</p>
-    <mat-form-field color="accent">
-      <mat-label>Date</mat-label>
-      <input matInput [matDatepicker]="picker" (dateChange)="fetchBookingsByDate($event)">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker color="primary"></mat-datepicker>
-    </mat-form-field>
-  </nav>
-
   <ng-container *ngIf="bookings$ | async as bookings">
     <ng-container *ngIf="currentBooking$ | async as booking; else bookingsTable">
       <app-booking-information [currentBooking]="booking"></app-booking-information>
     </ng-container>
     <ng-template #bookingsTable>
+      <app-bookings-nav></app-bookings-nav>
       <app-bookings-table [bookings]="bookings"></app-bookings-table>
     </ng-template>
   </ng-container>

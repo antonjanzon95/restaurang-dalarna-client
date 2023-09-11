@@ -46,7 +46,7 @@ export class BookingService {
   }
 
   deleteBooking(bookingId: string) {
-    return this.http.delete(
+    return this.http.delete<{ deletedId: string }>(
       `http://localhost:3000/bookings/delete/${bookingId}`
     );
   }

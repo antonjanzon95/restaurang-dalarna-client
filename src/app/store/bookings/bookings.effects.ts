@@ -119,7 +119,9 @@ export class BookingsEffects {
       ofType(BookingsActions.deleteBooking),
       concatMap(({ bookingId }) =>
         this.bookingService.deleteBooking(bookingId).pipe(
-          map(() => BookingsActions.deleteBookingSuccess()),
+          map(({ deletedId }) =>
+            BookingsActions.deleteBookingSuccess({ deletedId })
+          ),
           catchError((error: HttpErrorResponse) =>
             of(
               BookingsActions.deleteBookingFailure({

@@ -73,8 +73,8 @@ export const BookingsActions = {
     props<{ error: string }>()
   ),
   deleteBookingSuccess: createAction(
-    '[Admin Booking Information Page] Delete Booking Success'
-    // props<{ successMsg: string }>()
+    '[Admin Booking Information Page] Delete Booking Success',
+    props<{ deletedId: string }>()
   ),
 
   // Reset status
@@ -83,6 +83,6 @@ export const BookingsActions = {
   ),
   setTime: createAction(
     '[Tables] Set Time',
-    props<{ time: number; newDate?: Date | null}>()
+    props<{ time: number; newDate?: Date | null }>()
   ),
 };
