@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +35,12 @@ import { BookingsStatisticsComponent } from './components/bookings-statistics/bo
 import { AdminSidenavComponent } from './components/admin-sidenav/admin-sidenav.component';
 import { SharedMaterialModule } from './shared-material/shared-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BookingSuccessComponent } from './views/booking-success/booking-success.component';
+import { BookingSummaryComponent } from './components/booking-summary/booking-summary.component';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localeSv from '@angular/common/locales/sv';
+
+registerLocaleData(localeSv);
 
 @NgModule({
   declarations: [
@@ -55,6 +61,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BookingsNavComponent,
     BookingsStatisticsComponent,
     AdminSidenavComponent,
+    BookingSuccessComponent,
+    BookingSummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +82,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireStorageModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [DatePipe, { provide: LOCALE_ID, useValue: 'sv-SE' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

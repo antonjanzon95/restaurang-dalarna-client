@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { IBooking, IBookingResponse } from 'src/app/models/IBooking';
 import { ITable } from 'src/app/models/ITable';
+import { IAppState } from 'src/app/store/app.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookingService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store<IAppState>) {}
 
   getTables(time: string) {
     return this.http.post<ITable[]>('http://localhost:3000/tables', { time });
@@ -49,5 +51,9 @@ export class BookingService {
     return this.http.delete<{ deletedId: string }>(
       `http://localhost:3000/bookings/delete/${bookingId}`
     );
+  }
+
+  bookingSuccessGuard() {
+    return this.store.select((state) => state.bookings.latestBooking);
   }
 }

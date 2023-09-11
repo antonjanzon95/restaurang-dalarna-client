@@ -14,6 +14,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 import { Status } from '../../models/Status';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TablesActions } from 'src/app/store/tables/tables.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-form',
@@ -28,7 +29,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     private store: Store<IAppState>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<BookingFormComponent>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +42,7 @@ export class BookingFormComponent implements OnInit, OnDestroy {
           this.openSnackBar('Booking successfully made.');
           this.dialogRef.close();
           this.store.dispatch(BookingsActions.resetMakeBookingStatus());
+          this.router.navigateByUrl('booking-success')
         } else if (status === Status.Error) {
           this.openSnackBar('Booking failed.');
         }
@@ -62,8 +65,6 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    // date: new FormControl(new Date().toString(), Validators.required),
-    // time: new FormControl('', Validators.required),
     persons: new FormControl(0, Validators.required),
   });
 
@@ -73,20 +74,16 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     const firstName = safeString(this.bookingDetails.value.firstName);
     const lastName = safeString(this.bookingDetails.value.lastName);
     const email = safeString(this.bookingDetails.value.email);
-    // const date = safeString(this.bookingDetails.value.date).toString();
-    // const time = safeString(this.bookingDetails.value.time);
     const persons = Number(this.bookingDetails.value.persons);
 
     const bookingDetails: IBooking = {
       firstName,
       lastName,
       email,
-      // date,
       time: this.selectedTime,
       persons,
       tableNumber: this.data.tableNumber,
     };
-
     this.store.dispatch(BookingsActions.makeBooking({ bookingDetails }));
   }
 

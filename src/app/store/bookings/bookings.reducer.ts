@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { IBooking, IBookingResponse } from 'src/app/models/IBooking';
 import { BookingsActions } from './bookings.actions';
 import { Status } from 'src/app/models/Status';
-import { setTime } from 'src/app/utilities/setTime';
+import { formatDate } from 'src/app/utilities/setTime';
 
 export interface IBookingsState {
   bookings: IBookingResponse[];
@@ -11,6 +11,16 @@ export interface IBookingsState {
   getBookingsStatus: Status;
   makeBookingStatus: Status;
   selectedTime: string;
+  latestBooking: IBooking | undefined;
+}
+
+const dummyLatestBooking: IBooking = {
+  email: 'fdsafdsa',
+  firstName: 'fdsafda',
+  lastName: 'ghghgf',
+  persons: 4,
+  tableNumber: 4,
+  time: formatDate(18)
 }
 
 export const initialState: IBookingsState = {
@@ -19,7 +29,8 @@ export const initialState: IBookingsState = {
   error: null,
   getBookingsStatus: Status.Idle,
   makeBookingStatus: Status.Idle,
-  selectedTime: setTime(18),
+  selectedTime: formatDate(18),
+  latestBooking: dummyLatestBooking,
 };
 
 export const BookingsReducer = createReducer(
@@ -136,12 +147,18 @@ export const BookingsReducer = createReducer(
     makeBookingStatus: Status.Idle,
   })),
   on(BookingsActions.setTime, (state, { time, newDate }) => {
-    if (newDate) return { ...state, selectedTime: setTime(time, newDate) };
+    if (newDate) return { ...state, selectedTime: formatDate(time, newDate) };
     else {
       return {
         ...state,
-        selectedTime: setTime(time),
+        selectedTime: formatDate(time),
       };
     }
+  }),
+  on(BookingsActions.setLatestBooking, (state, { bookingDetails }) => {
+    return {
+      ...state,
+      latestBooking: bookingDetails,
+    };
   })
 );
