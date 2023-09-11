@@ -8,3 +8,8 @@ export const selectUser = createSelector(
   selectUserState,
   (state: IUserState) => state.user
 );
+
+export const isAdmin = createSelector(
+  selectUserState,
+  (state: IUserState) => state.user?.isAdmin
+);

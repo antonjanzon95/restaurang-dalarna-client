@@ -6,6 +6,7 @@ export interface IBooking {
   time: string;
   persons: number;
   tableNumber: number;
+  userId?: string;
 }
 
 export interface IBookingResponse extends IBooking {

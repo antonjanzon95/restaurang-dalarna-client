@@ -19,6 +19,13 @@ export class BookingService {
     return this.http.get<IBookingResponse[]>('http://localhost:3000/bookings');
   }
 
+  getBookingsByUserId(userId: string) {
+    console.log(userId);
+    return this.http.get<IBookingResponse[]>(
+      `http://localhost:3000/bookings/${userId}`
+    );
+  }
+
   getBookingsByDate(date: Date) {
     return this.http.post<IBookingResponse[]>(
       'http://localhost:3000/bookings/day',

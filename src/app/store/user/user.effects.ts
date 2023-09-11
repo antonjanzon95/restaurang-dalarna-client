@@ -4,7 +4,6 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UserActions } from './user.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { User } from 'firebase/auth';
 
 @Injectable()
 export class userEffects {
@@ -15,11 +14,7 @@ export class userEffects {
       ofType(UserActions.loginUser),
       switchMap(({ email, password }) =>
         this.userService.loginUser(email, password).pipe(
-          map((response: User | null) => {
-            if (response)
-              return UserActions.loginUserSuccess({ user: response });
-            throw new Error('No user returned.');
-          }),
+          map((response) => UserActions.loginUserSuccess({ user: response })),
           catchError((error: HttpErrorResponse) =>
             of(UserActions.loginUserFailure({ error: error.error.message }))
           )
@@ -27,4 +22,71 @@ export class userEffects {
       )
     )
   );
+
+  signUpUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.signUpUser),
+      switchMap(({ email, password, repeatPassword, isAdmin }) =>
+        this.userService
+          .signUpUser(email, password, repeatPassword, isAdmin)
+          .pipe(
+            map((response) =>
+              UserActions.signUpUserSuccess({ user: response })
+            ),
+            catchError((error: HttpErrorResponse) =>
+              of(UserActions.signUpUserFailure({ error: error.error.message }))
+            )
+          )
+      )
+    )
+  );
+
+  // loginUser$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(UserActions.loginUser),
+  //     switchMap(({ email, password }) =>
+  //       this.userService.loginUser(email, password).pipe(
+  //         map(parseUser),
+  //         map((response: IUserInfo | null) => {
+  //           if (response)
+  //             return UserActions.loginUserSuccess({ user: response });
+  //           throw new Error('No user returned.');
+  //         }),
+  //         catchError((error: HttpErrorResponse) =>
+  //           of(UserActions.loginUserFailure({ error: error.error.message }))
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
+
+  // signUpUser$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(UserActions.signUpUser),
+  //     switchMap(({ email, password }) =>
+  //       this.userService.signUpUser(email, password).pipe(map(parseUser))
+  //     ),
+  //     map((user) => UserActions.signUpUserSuccess({ user }))
+  //   )
+  // );
+
+  // logoutUser$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(UserActions.logoutUser),
+  //     switchMap(() =>
+  //       this.userService.signOut().pipe(
+  //         map(() => {
+  //           console.log('effect before success');
+  //           return UserActions.logoutUserSuccess();
+  //         }),
+  //         catchError((error: HttpErrorResponse) => {
+  //           console.log('effect before failure');
+  //           return of(
+  //             UserActions.logoutUserFailure({ error: error.error.message })
+  //           );
+  //         })
+  //       )
+  //     )
+  //   )
+  // );
 }

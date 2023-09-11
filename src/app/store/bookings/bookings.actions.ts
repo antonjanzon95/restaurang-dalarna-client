@@ -14,6 +14,20 @@ export const BookingsActions = {
     props<{ bookings: IBookingResponse[] }>()
   ),
 
+  // By user id
+  getBookingsByUserId: createAction(
+    '[Bookings] Get Bookings By User Id',
+    props<{ userId: string }>()
+  ),
+  getBookingsByUserIdFailure: createAction(
+    '[Bookings] Get Bookings By User Id Failure',
+    props<{ error: string }>()
+  ),
+  getBookingsByUserIdSuccess: createAction(
+    '[Bookings] Get Bookings By User Id Success',
+    props<{ userBookings: IBookingResponse[] }>()
+  ),
+
   // By date
   getBookingsByDate: createAction(
     '[Bookings] Get Bookings By Date',

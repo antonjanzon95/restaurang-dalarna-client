@@ -1,11 +1,16 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from 'firebase/auth';
+import { IUserInfo } from 'src/app/models/IUserInfo';
 
 export const UserActions = {
   // Sign up
   signUpUser: createAction(
     '[Sign Up Page] Sign Up User',
-    props<{ email: string; password: string }>()
+    props<{
+      email: string;
+      password: string;
+      repeatPassword: string;
+      isAdmin: boolean;
+    }>()
   ),
   signUpUserFailure: createAction(
     '[Sign Up Page] Sign Up User Failure',
@@ -13,7 +18,7 @@ export const UserActions = {
   ),
   signUpUserSuccess: createAction(
     '[Sign Up Page] Sign Up User Success',
-    props<{ user: User }>()
+    props<{ user: IUserInfo }>()
   ),
 
   // Login
@@ -27,7 +32,7 @@ export const UserActions = {
   ),
   loginUserSuccess: createAction(
     '[Login Page] Login User Success',
-    props<{ user: User }>()
+    props<{ user: IUserInfo }>()
   ),
 
   // Logout

@@ -31,9 +31,16 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row class="hover:bg-slate-200 cursor-pointer" *matRowDef="let row; let booking; columns: displayedColumns;"
-      (click)="setCurrentBooking(booking._id)">
-    </tr>
+    <ng-container *ngIf="isAdmin; else notAdmin">
+      <tr mat-row class="hover:bg-slate-200 cursor-pointer"
+        *matRowDef="let row; let booking; columns: displayedColumns;" (click)="setCurrentBooking(booking._id)">
+      </tr>
+    </ng-container>
+    <ng-template #notAdmin>
+      <tr mat-row *matRowDef="let row; let booking; columns: displayedColumns;">
+      </tr>
+    </ng-template>
+
   </table>
 </ng-container>
 

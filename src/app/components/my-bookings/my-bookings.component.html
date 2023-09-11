@@ -1,0 +1,3 @@
+<div *ngIf="userBookings$ | async as userBookings">
+  <app-bookings-table [bookings]="userBookings" [isAdmin]="false"></app-bookings-table>
+</div>
