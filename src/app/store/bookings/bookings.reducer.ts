@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { IBooking, IBookingResponse } from 'src/app/models/IBooking';
 import { BookingsActions } from './bookings.actions';
 import { Status } from 'src/app/models/Status';
-import { formatDate } from 'src/app/utilities/setTime';
+import { formatDate } from 'src/app/utilities/formatDate';
 
 export interface IBookingsState {
   bookings: IBookingResponse[];
@@ -20,8 +20,8 @@ const dummyLatestBooking: IBooking = {
   lastName: 'ghghgf',
   persons: 4,
   tableNumber: 4,
-  time: formatDate(18)
-}
+  time: formatDate(18),
+};
 
 export const initialState: IBookingsState = {
   bookings: [],
@@ -96,6 +96,9 @@ export const BookingsReducer = createReducer(
       currentBooking: currentBooking || null,
     };
   }),
+  on(BookingsActions.setCurrentBookingWithDetails, (state, action) => {
+    return {...state, currentBooking: action.bookingDetails}
+  }),
   on(BookingsActions.resetCurrentBooking, (state) => ({
     ...state,
     currentBooking: null,
@@ -140,6 +143,25 @@ export const BookingsReducer = createReducer(
       status: Status.Success,
     };
   }),
+
+  // Update booking
+  on(BookingsActions.updateBooking, (state) => ({
+    ...state,
+    makeBookingStatus: Status.Pending,
+  })),
+
+  on(BookingsActions.updateBookingFailure, (state, { error }) => ({
+    ...state,
+    error,
+    makeBookingStatus: Status.Error
+  })),
+
+  on(BookingsActions.updateBookingSuccess, (state) => ({
+    ...state,
+    error: null,
+    makeBookingStatus: Status.Success,
+
+  })),
 
   // Reset status
   on(BookingsActions.resetMakeBookingStatus, (state) => ({

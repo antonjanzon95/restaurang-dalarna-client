@@ -2,9 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs';
-import { IBooking } from 'src/app/models/IBooking';
+import { IBooking, IBookingResponse } from 'src/app/models/IBooking';
 import { IAppState } from 'src/app/store/app.state';
+import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
+import { formatDate } from 'src/app/utilities/formatDate';
 
 @Component({
   selector: 'app-modify-booking',
@@ -12,13 +13,14 @@ import { IAppState } from 'src/app/store/app.state';
   styleUrls: ['./modify-booking.component.css'],
 })
 export class ModifyBookingComponent implements OnInit {
-  currentBooking: IBooking | null = null;
+  currentBooking: IBookingResponse | null = null;
   modifyBookingDetails: FormGroup = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: ['', Validators.required],
     persons: ['', Validators.required],
-    time: ['', Validators.required]
+    time: ['', Validators.required],
+    date: ['', Validators.required],
   });
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { data: { bookingId: string } },
@@ -38,9 +40,24 @@ export class ModifyBookingComponent implements OnInit {
             lastName: this.currentBooking.lastName,
             email: this.currentBooking.email,
             persons: this.currentBooking.persons,
-            time: this.currentBooking.time
+            time: new Date(this.currentBooking.time).getHours().toString(),
+            date: new Date(this.currentBooking.time),
           });
         }
       });
+  }
+
+  onSubmit() {
+    if (this.modifyBookingDetails.invalid) return;
+    const bookingDetails: IBookingResponse = {
+      ...this.modifyBookingDetails.value,
+      _id: this.currentBooking?._id,
+      time: formatDate(
+        this.modifyBookingDetails.value.time,
+        this.modifyBookingDetails.value.date
+      ),
+    };
+    console.log(bookingDetails);
+    this.store.dispatch(BookingsActions.updateBooking({ bookingDetails }));
   }
 }

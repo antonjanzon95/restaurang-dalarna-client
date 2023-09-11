@@ -136,4 +136,33 @@ export class BookingsEffects {
       )
     )
   );
+
+  updateBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BookingsActions.updateBooking),
+      concatMap(({ bookingDetails }) =>
+        this.bookingService.updateBooking(bookingDetails).pipe(
+          map((response) => {
+            this.store.dispatch(
+              BookingsActions.setCurrentBookingWithDetails({
+                bookingDetails: response.body,
+              })
+            );
+            this.store.dispatch(BookingsActions.getBookingsByMonth({monthNumber: new Date(bookingDetails.time).getMonth()}));
+            this.store.dispatch(TablesActions.getTables());
+            return BookingsActions.updateBookingSuccess({
+              bookingDetails: response.body,
+            });
+          }),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              BookingsActions.updateBookingFailure({
+                error: error.error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
 }

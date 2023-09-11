@@ -53,6 +53,13 @@ export class BookingService {
     );
   }
 
+  updateBooking(bookingDetails: IBookingResponse) {
+    return this.http.put<{ message: string, success: boolean; body: IBookingResponse }>(
+      'http://localhost:3000/bookings/update',
+      bookingDetails
+    );
+  }
+
   bookingSuccessGuard() {
     return this.store.select((state) => state.bookings.latestBooking);
   }

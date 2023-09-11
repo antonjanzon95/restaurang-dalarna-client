@@ -48,6 +48,10 @@ export const BookingsActions = {
     props<{ bookingId: string }>()
   ),
   resetCurrentBooking: createAction('[Admin Page] Reset Current Booking'),
+  setCurrentBookingWithDetails: createAction(
+    '[Bookings Effects] Set Current Booking with booking details as parameter',
+    props<{ bookingDetails: IBookingResponse }>()
+  ),
 
   // Make booking
   makeBooking: createAction(
@@ -75,6 +79,19 @@ export const BookingsActions = {
   deleteBookingSuccess: createAction(
     '[Admin Booking Information Page] Delete Booking Success',
     props<{ deletedId: string }>()
+  ),
+
+  updateBooking: createAction(
+    '[Modify Booking] Update Booking',
+    props<{ bookingDetails: IBookingResponse }>()
+  ),
+  updateBookingFailure: createAction(
+    '[Modify Booking] Update Booking Failure',
+    props<{ error: string }>()
+  ),
+  updateBookingSuccess: createAction(
+    '[Modify Booking] Update Booking Success',
+    props<{ bookingDetails: IBookingResponse }>()
   ),
 
   // Reset status
