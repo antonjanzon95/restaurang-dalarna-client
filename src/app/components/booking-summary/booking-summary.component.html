@@ -1,0 +1,4 @@
+<div *ngIf="latestBooking | async as latestBooking">
+  <h4>Tack för din bokning, {{latestBooking.firstName}}!</h4>
+  <p>Du är välkommen {{latestBooking.time | date: "EEEE d MMMM 'kl' HH:mm"}}</p>
+</div>

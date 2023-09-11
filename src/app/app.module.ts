@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +41,12 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { userEffects } from './store/user/user.effects';
 import { userReducer } from './store/user/user.reducer';
 import { BookingTimeInputComponent } from './components/booking-time-input/booking-time-input.component';
+import { BookingSuccessComponent } from './views/booking-success/booking-success.component';
+import { BookingSummaryComponent } from './components/booking-summary/booking-summary.component';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localeSv from '@angular/common/locales/sv';
+
+registerLocaleData(localeSv);
 
 @NgModule({
   declarations: [
@@ -58,6 +64,8 @@ import { BookingTimeInputComponent } from './components/booking-time-input/booki
     DeleteCheckComponent,
     AdminLoginComponent,
     BookingTimeInputComponent,
+    BookingSuccessComponent,
+    BookingSummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +94,7 @@ import { BookingTimeInputComponent } from './components/booking-time-input/booki
     AngularFireAuthModule,
     AngularFireStorageModule,
   ],
-  providers: [],
+  providers: [DatePipe, { provide: LOCALE_ID, useValue: 'sv-SE' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

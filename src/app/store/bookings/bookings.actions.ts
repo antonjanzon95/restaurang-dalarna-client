@@ -83,6 +83,10 @@ export const BookingsActions = {
   ),
   setTime: createAction(
     '[Tables] Set Time',
-    props<{ time: number; newDate?: Date | null}>()
+    props<{ time: number; newDate?: Date | null }>()
+  ),
+  setLatestBooking: createAction(
+    '[Booking Form] Set latest booking',
+    props<{ bookingDetails: IBooking }>()
   ),
 };
