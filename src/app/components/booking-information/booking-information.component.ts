@@ -5,6 +5,7 @@ import { IBookingResponse } from 'src/app/models/IBooking';
 import { IAppState } from 'src/app/store/app.state';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
 import { DeleteCheckComponent } from '../delete-check/delete-check.component';
+import { ModifyBookingComponent } from '../modify-booking/modify-booking.component';
 
 @Component({
   selector: 'app-booking-information',
@@ -29,5 +30,9 @@ export class BookingInformationComponent implements OnInit {
     this.dialog.open(DeleteCheckComponent, {
       data: { bookingId: this.currentBooking?._id },
     });
+  }
+
+  openModifyDialog() {
+    this.dialog.open(ModifyBookingComponent, { data: { bookingId: this.currentBooking?._id}})
   }
 }

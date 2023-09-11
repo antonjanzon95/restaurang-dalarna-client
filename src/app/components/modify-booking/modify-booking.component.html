@@ -1,0 +1,36 @@
+<form *ngIf="currentBooking" [formGroup]="modifyBookingDetails">
+  <mat-form-field>
+    <mat-label class="flex flex-col">
+      First name
+    </mat-label>
+    <input matInput type="text" formControlName="firstName" name="first-name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label class="flex flex-col">
+      Last name
+    </mat-label>
+    <input matInput type="text" formControlName="lastName" name="last-name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label class="flex flex-col">
+      Email
+    </mat-label>
+    <input matInput type="text" formControlName="email" name="email">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Number of people
+    </mat-label>
+    <input matInput type="number" formControlName="persons">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>
+      Time
+    </mat-label>
+    <input matInput type="number" formControlName="time">
+  </mat-form-field>
+</form>
