@@ -13,10 +13,14 @@ import { ModifyBookingComponent } from '../modify-booking/modify-booking.compone
   styleUrls: ['./booking-information.component.css'],
 })
 export class BookingInformationComponent implements OnInit {
+  
   @Input() currentBooking: IBookingResponse | undefined;
   date: Date | undefined;
 
-  constructor(private store: Store<IAppState>, private dialog: MatDialog) {}
+  constructor(
+    private store: Store<IAppState>,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     // if (this.currentBooking) this.date = new Date(this.currentBooking.date);
@@ -33,6 +37,8 @@ export class BookingInformationComponent implements OnInit {
   }
 
   openModifyDialog() {
-    this.dialog.open(ModifyBookingComponent, { data: { bookingId: this.currentBooking?._id}})
+    this.dialog.open(ModifyBookingComponent, {
+      data: { bookingId: this.currentBooking?._id },
+    });
   }
 }

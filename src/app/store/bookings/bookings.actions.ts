@@ -17,7 +17,7 @@ export const BookingsActions = {
   // By date
   getBookingsByDate: createAction(
     '[Bookings] Get Bookings By Date',
-    props<{ date: Date }>()
+    props<{ time: string }>()
   ),
   getBookingsByDateFailure: createAction(
     '[Bookings] Get Bookings By Date Failure',

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/store/app.state';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
+import { formatDate } from 'src/app/utilities/formatDate';
 
 @Component({
   selector: 'app-bookings-nav',
@@ -38,8 +39,11 @@ export class BookingsNavComponent implements OnInit {
   }
 
   fetchBookingsByDate(event: any) {
-    const date = event.value;
+    const time = event.value
+    console.log('Time: ', time);
+    console.log('Time: ', time.toString());
+    
 
-    this.store.dispatch(BookingsActions.getBookingsByDate({ date }));
+    this.store.dispatch(BookingsActions.getBookingsByDate({ time: formatDate(18, time) }));
   }
 }
