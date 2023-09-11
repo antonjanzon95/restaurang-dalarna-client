@@ -14,6 +14,15 @@ export interface IBookingsState {
   latestBooking: IBooking | undefined;
 }
 
+const dummyLatestBooking: IBooking = {
+  email: 'fdsafdsa',
+  firstName: 'fdsafda',
+  lastName: 'ghghgf',
+  persons: 4,
+  tableNumber: 4,
+  time: formatDate(18)
+}
+
 export const initialState: IBookingsState = {
   bookings: [],
   currentBooking: null,
@@ -21,7 +30,7 @@ export const initialState: IBookingsState = {
   getBookingsStatus: Status.Idle,
   makeBookingStatus: Status.Idle,
   selectedTime: formatDate(18),
-  latestBooking: undefined,
+  latestBooking: dummyLatestBooking,
 };
 
 export const BookingsReducer = createReducer(
