@@ -117,6 +117,8 @@ export const BookingsReducer = createReducer(
     currentBooking: booking,
     makeBookingStatus: Status.Success,
   })),
+
+  // Delete booking
   on(BookingsActions.deleteBooking, (state) => ({
     ...state,
     status: Status.Pending,
@@ -126,12 +128,19 @@ export const BookingsReducer = createReducer(
     error: error,
     status: Status.Error,
   })),
-  on(BookingsActions.deleteBookingSuccess, (state) => ({
-    ...state,
-    error: null,
-    currentBooking: null,
-    status: Status.Success,
-  })),
+  on(BookingsActions.deleteBookingSuccess, (state, { deletedId }) => {
+    console.log(deletedId);
+    return {
+      ...state,
+      error: null,
+      currentBooking: null,
+      bookings: state.bookings.filter(
+        (booking: IBookingResponse) => booking._id !== deletedId
+      ),
+      status: Status.Success,
+    };
+  }),
+
   // Reset status
   on(BookingsActions.resetMakeBookingStatus, (state) => ({
     ...state,

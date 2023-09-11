@@ -17,32 +17,4 @@ export class BookingsOverviewComponent {
   currentBooking$ = this.store.select(selectCurrentBooking);
 
   constructor(private store: Store<IAppState>) {}
-
-  months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
-  fetchBookingsByMonth(event: any) {
-    const monthNumber = event.value;
-
-    console.log(monthNumber);
-    this.store.dispatch(BookingsActions.getBookingsByMonth({ monthNumber }));
-  }
-
-  fetchBookingsByDate(event: any) {
-    const date = event.value;
-
-    this.store.dispatch(BookingsActions.getBookingsByDate({ date }));
-  }
 }

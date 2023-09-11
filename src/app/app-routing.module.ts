@@ -13,7 +13,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     canActivate: [adminGuardGuard],
-    component: AdminComponent,
+    loadChildren: () =>
+      import('./views/admin/admin.module').then((m) => m.AdminModule),
     data: { name: 'Admin' },
   },
   { path: 'booking-success', component: BookingSuccessComponent, data: { name: 'BookingSuccess' }, canActivate: [bookingSuccessGuard] },
