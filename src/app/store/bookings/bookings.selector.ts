@@ -27,3 +27,8 @@ export const selectCurrentBooking = createSelector(
   selectBookingsState,
   (state: IBookingsState) => state.currentBooking
 );
+
+export const selectUserBookings = createSelector(
+  selectBookingsState,
+  (state: IBookingsState) => state.userBookings
+);

@@ -31,6 +31,26 @@ export class BookingsEffects {
     )
   );
 
+  getBookingsByUserId$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BookingsActions.getBookingsByUserId),
+      concatMap(({ userId }) =>
+        this.bookingService.getBookingsByUserId(userId).pipe(
+          map((userBookings) =>
+            BookingsActions.getBookingsByUserIdSuccess({ userBookings })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              BookingsActions.getBookingsByUserIdFailure({
+                error: error.error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   getBookingsByDate$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookingsActions.getBookingsByDate),

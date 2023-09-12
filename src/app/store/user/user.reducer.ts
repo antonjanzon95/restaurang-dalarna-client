@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { User } from 'firebase/auth';
 import { UserActions } from './user.actions';
 import { Status } from 'src/app/models/Status';
+import { IUserInfo } from 'src/app/models/IUserInfo';
 
 export interface IUserState {
-  user: User | null;
+  user: IUserInfo | null;
   error: string | null;
   status: Status;
 }
@@ -54,16 +54,6 @@ export const userReducer = createReducer(
   // Logout
   on(UserActions.logoutUser, (state) => ({
     ...state,
-    status: Status.Pending,
-  })),
-  on(UserActions.logoutUserFailure, (state, { error }) => ({
-    ...state,
-    error: error,
-    status: Status.Error,
-  })),
-  on(UserActions.logoutUserSuccess, (state) => ({
-    ...state,
-    error: null,
     user: null,
     status: Status.Success,
   }))

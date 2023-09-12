@@ -39,6 +39,8 @@ import { BookingSuccessComponent } from './views/booking-success/booking-success
 import { BookingSummaryComponent } from './components/booking-summary/booking-summary.component';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localeSv from '@angular/common/locales/sv';
+import { AuthButtonComponent } from './components/auth-button/auth-button.component';
+import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
 import { ModifyBookingComponent } from './components/modify-booking/modify-booking.component';
 
 registerLocaleData(localeSv);
@@ -64,6 +66,8 @@ registerLocaleData(localeSv);
     AdminSidenavComponent,
     BookingSuccessComponent,
     BookingSummaryComponent,
+    AuthButtonComponent,
+    MyBookingsComponent,
     ModifyBookingComponent,
   ],
   imports: [

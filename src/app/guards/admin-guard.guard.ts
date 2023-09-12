@@ -6,5 +6,5 @@ import { map } from 'rxjs';
 export const adminGuardGuard: CanActivateFn = (route, state) => {
   const auth = inject(UserService);
 
-  return auth.isLoggedIn().pipe(map((user) => !!user));
+  return auth.isAdmin().pipe(map((isAdmin) => Boolean(isAdmin)));
 };

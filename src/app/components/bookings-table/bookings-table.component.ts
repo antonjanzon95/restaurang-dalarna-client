@@ -12,6 +12,7 @@ import { selectCurrentBooking } from 'src/app/store/bookings/bookings.selector';
 })
 export class BookingsTableComponent {
   @Input() bookings: IBooking[] | undefined;
+  @Input() isAdmin: boolean | undefined;
   displayedColumns: string[] = [
     'firstName',
     'lastName',

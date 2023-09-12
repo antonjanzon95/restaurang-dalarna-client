@@ -7,6 +7,7 @@ import { formatDate } from 'src/app/utilities/formatDate';
 export interface IBookingsState {
   bookings: IBookingResponse[];
   currentBooking: IBookingResponse | null;
+  userBookings: IBookingResponse[];
   error: string | null;
   getBookingsStatus: Status;
   makeBookingStatus: Status;
@@ -26,6 +27,7 @@ const dummyLatestBooking: IBooking = {
 export const initialState: IBookingsState = {
   bookings: [],
   currentBooking: null,
+  userBookings: [],
   error: null,
   getBookingsStatus: Status.Idle,
   makeBookingStatus: Status.Idle,
@@ -52,6 +54,23 @@ export const BookingsReducer = createReducer(
     getBookingsStatus: Status.Success,
   })),
 
+  // By user id
+  on(BookingsActions.getBookingsByUserId, (state) => ({
+    ...state,
+    getBookingsStatus: Status.Pending,
+  })),
+  on(BookingsActions.getBookingsByUserIdFailure, (state, { error }) => ({
+    ...state,
+    error: error,
+    getBookingsStatus: Status.Error,
+  })),
+  on(BookingsActions.getBookingsByUserIdSuccess, (state, { userBookings }) => ({
+    ...state,
+    error: null,
+    userBookings: userBookings,
+    getBookingsStatus: Status.Success,
+  })),
+
   // By date
   on(BookingsActions.getBookingsByDate, (state) => ({
     ...state,
@@ -66,7 +85,7 @@ export const BookingsReducer = createReducer(
     ...state,
     error: null,
     bookings: bookings,
-    getBookingsStatus: Status.Pending,
+    getBookingsStatus: Status.Success,
   })),
 
   // By month
@@ -83,7 +102,7 @@ export const BookingsReducer = createReducer(
     ...state,
     error: null,
     bookings: bookings,
-    getBookingsStatus: Status.Pending,
+    getBookingsStatus: Status.Success,
   })),
 
   // Set/Reset current booking

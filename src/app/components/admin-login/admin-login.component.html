@@ -19,6 +19,7 @@
     </mat-label>
     <input matInput type="password" formControlName="repeatPassword" />
   </mat-form-field>
+  <mat-checkbox *ngIf="isSignUp" formControlName="isAdmin">Admin privileges</mat-checkbox>
   <div class="flex gap-4">
     <button mat-raised-button [disabled]="userForm.invalid" color="primary" class="w-24">
       {{ isSignUp ? 'Sign up' : 'Log in' }}

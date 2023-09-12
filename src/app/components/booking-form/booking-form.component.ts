@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { IBooking } from 'src/app/models/IBooking';
 import { IAppState } from 'src/app/store/app.state';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
@@ -10,11 +10,11 @@ import {
   selectMakeBookingStatus,
   selectSelectedTime,
 } from 'src/app/store/bookings/bookings.selector';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Status } from '../../models/Status';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TablesActions } from 'src/app/store/tables/tables.actions';
 import { Router } from '@angular/router';
+import { selectUser } from 'src/app/store/user/user.selector';
 
 @Component({
   selector: 'app-booking-form',
@@ -23,7 +23,9 @@ import { Router } from '@angular/router';
 })
 export class BookingFormComponent implements OnInit, OnDestroy {
   selectedTime = '';
+  userId: string | undefined;
   private destroy$ = new Subject<void>();
+
   constructor(
     private store: Store<IAppState>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -41,7 +43,7 @@ export class BookingFormComponent implements OnInit, OnDestroy {
           this.openSnackBar('Booking successfully made.');
           this.dialogRef.close();
           this.store.dispatch(BookingsActions.resetMakeBookingStatus());
-          this.router.navigateByUrl('booking-success')
+          this.router.navigateByUrl('booking-success');
         } else if (status === Status.Error) {
           this.openSnackBar('Booking failed.');
         }
@@ -50,6 +52,12 @@ export class BookingFormComponent implements OnInit, OnDestroy {
       .select(selectSelectedTime)
       .pipe()
       .subscribe((selectedTime) => (this.selectedTime = selectedTime));
+
+    this.store.select(selectUser).subscribe((user) => {
+      console.log(user);
+      console.log(user!._id);
+      if (user) this.userId = user._id;
+    });
   }
 
   ngOnDestroy(): void {
@@ -75,6 +83,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     const email = safeString(this.bookingDetails.value.email);
     const persons = Number(this.bookingDetails.value.persons);
 
+    if (!this.userId) return alert('You must be logged in to make a booking!');
+
     const bookingDetails: IBooking = {
       firstName,
       lastName,
@@ -82,6 +92,7 @@ export class BookingFormComponent implements OnInit, OnDestroy {
       time: this.selectedTime,
       persons,
       tableNumber: this.data.tableNumber,
+      userId: this.userId,
     };
     this.store.dispatch(BookingsActions.makeBooking({ bookingDetails }));
   }

@@ -25,6 +25,7 @@ export class AdminLoginComponent {
       '',
       Validators.compose([Validators.required, Validators.minLength(8)]),
     ],
+    isAdmin: [false],
   });
 
   constructor(
@@ -39,8 +40,10 @@ export class AdminLoginComponent {
   }
 
   signUp(userForm: FormGroup) {
-    const { email, password } = userForm.value;
-    this.store.dispatch(UserActions.signUpUser({ email, password }));
+    const { email, password, repeatPassword, isAdmin } = userForm.value;
+    this.store.dispatch(
+      UserActions.signUpUser({ email, password, repeatPassword, isAdmin })
+    );
     this.userForm.reset();
   }
 
