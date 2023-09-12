@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { IBooking, IBookingResponse } from 'src/app/models/IBooking';
 import { BookingsActions } from './bookings.actions';
 import { Status } from 'src/app/models/Status';
-import { formatDate } from 'src/app/utilities/setTime';
+import { formatDate } from 'src/app/utilities/formatDate';
 
 export interface IBookingsState {
   bookings: IBookingResponse[];
@@ -115,6 +115,9 @@ export const BookingsReducer = createReducer(
       currentBooking: currentBooking || null,
     };
   }),
+  on(BookingsActions.setCurrentBookingWithDetails, (state, action) => {
+    return {...state, currentBooking: action.bookingDetails}
+  }),
   on(BookingsActions.resetCurrentBooking, (state) => ({
     ...state,
     currentBooking: null,
@@ -159,6 +162,25 @@ export const BookingsReducer = createReducer(
       status: Status.Success,
     };
   }),
+
+  // Update booking
+  on(BookingsActions.updateBooking, (state) => ({
+    ...state,
+    makeBookingStatus: Status.Pending,
+  })),
+
+  on(BookingsActions.updateBookingFailure, (state, { error }) => ({
+    ...state,
+    error,
+    makeBookingStatus: Status.Error
+  })),
+
+  on(BookingsActions.updateBookingSuccess, (state) => ({
+    ...state,
+    error: null,
+    makeBookingStatus: Status.Success,
+
+  })),
 
   // Reset status
   on(BookingsActions.resetMakeBookingStatus, (state) => ({

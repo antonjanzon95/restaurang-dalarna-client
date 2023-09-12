@@ -54,8 +54,8 @@ export class BookingsEffects {
   getBookingsByDate$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookingsActions.getBookingsByDate),
-      switchMap(({ date }) =>
-        this.bookingService.getBookingsByDate(date).pipe(
+      switchMap(({ time }) =>
+        this.bookingService.getBookingsByDate(time).pipe(
           map((bookings) =>
             BookingsActions.getBookingsByDateSuccess({ bookings })
           ),
@@ -94,13 +94,14 @@ export class BookingsEffects {
     this.actions$.pipe(
       ofType(BookingsActions.getBookingsByMonth),
       switchMap((monthNumber) => {
-        console.log(monthNumber);
         return this.bookingService
           .getBookingsByMonth(monthNumber.monthNumber)
           .pipe(
-            map((bookings) =>
-              BookingsActions.getBookingsByMonthSuccess({ bookings })
-            ),
+            map((bookings) => {
+              console.log('Bookings: ', bookings);
+
+              return BookingsActions.getBookingsByMonthSuccess({ bookings });
+            }),
             catchError((error: HttpErrorResponse) =>
               of(
                 BookingsActions.getBookingsByMonthFailure({
@@ -148,6 +149,42 @@ export class BookingsEffects {
           catchError((error: HttpErrorResponse) =>
             of(
               BookingsActions.deleteBookingFailure({
+                error: error.error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  updateBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BookingsActions.updateBooking),
+      concatMap(({ bookingDetails }) =>
+        this.bookingService.updateBooking(bookingDetails).pipe(
+          map((response) => {
+            console.log('Response: ', response);
+            console.log('Body: ', response.body);
+
+            this.store.dispatch(
+              BookingsActions.setCurrentBookingWithDetails({
+                bookingDetails: response.body,
+              })
+            );
+            this.store.dispatch(
+              BookingsActions.getBookingsByMonth({
+                monthNumber: new Date(bookingDetails.time).getMonth(),
+              })
+            );
+            this.store.dispatch(TablesActions.getTables());
+            return BookingsActions.updateBookingSuccess({
+              bookingDetails: response.body,
+            });
+          }),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              BookingsActions.updateBookingFailure({
                 error: error.error.message,
               })
             )

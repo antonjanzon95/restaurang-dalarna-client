@@ -22,9 +22,9 @@ import { selectUser } from 'src/app/store/user/user.selector';
   styleUrls: ['./booking-form.component.css'],
 })
 export class BookingFormComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
   selectedTime = '';
   userId: string | undefined;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private store: Store<IAppState>,

@@ -5,6 +5,7 @@ import { IBookingResponse } from 'src/app/models/IBooking';
 import { IAppState } from 'src/app/store/app.state';
 import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
 import { DeleteCheckComponent } from '../delete-check/delete-check.component';
+import { ModifyBookingComponent } from '../modify-booking/modify-booking.component';
 
 @Component({
   selector: 'app-booking-information',
@@ -12,10 +13,14 @@ import { DeleteCheckComponent } from '../delete-check/delete-check.component';
   styleUrls: ['./booking-information.component.css'],
 })
 export class BookingInformationComponent implements OnInit {
+  
   @Input() currentBooking: IBookingResponse | undefined;
   date: Date | undefined;
 
-  constructor(private store: Store<IAppState>, private dialog: MatDialog) {}
+  constructor(
+    private store: Store<IAppState>,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     // if (this.currentBooking) this.date = new Date(this.currentBooking.date);
@@ -27,6 +32,12 @@ export class BookingInformationComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(DeleteCheckComponent, {
+      data: { bookingId: this.currentBooking?._id },
+    });
+  }
+
+  openModifyDialog() {
+    this.dialog.open(ModifyBookingComponent, {
       data: { bookingId: this.currentBooking?._id },
     });
   }

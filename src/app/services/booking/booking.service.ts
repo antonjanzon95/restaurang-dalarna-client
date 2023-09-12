@@ -20,13 +20,12 @@ export class BookingService {
   }
 
   getBookingsByUserId(userId: string) {
-    console.log(userId);
     return this.http.get<IBookingResponse[]>(
       `http://localhost:3000/bookings/${userId}`
     );
   }
 
-  getBookingsByDate(date: Date) {
+  getBookingsByDate(date: string) {
     return this.http.post<IBookingResponse[]>(
       'http://localhost:3000/bookings/day',
       {
@@ -57,6 +56,13 @@ export class BookingService {
   deleteBooking(bookingId: string) {
     return this.http.delete<{ deletedId: string }>(
       `http://localhost:3000/bookings/delete/${bookingId}`
+    );
+  }
+
+  updateBooking(bookingDetails: IBookingResponse) {
+    return this.http.put<{ message: string, success: boolean; body: IBookingResponse }>(
+      'http://localhost:3000/bookings/update',
+      bookingDetails
     );
   }
 
