@@ -1,7 +1,9 @@
 <form #bookingForm="ngForm" [formGroup]="bookingDetails" (ngSubmit)="onSubmit()"
-  class="flex flex-col items-center gap-2 w-[100vw] p-4 bg-gradient-to-r from-slate-50 to-slate-200 relative rounded-xl">
+  class="flex flex-col items-center gap-2 w-[300px] p-8 bg-gradient-to-r from-slate-50 to-slate-200 relative rounded-xl">
 
   <h2 class="text-xl">Book table #{{data.tableNumber}}</h2>
+
+  <p>{{ selectedTime | date: "EEEE d MMMM 'kl' HH:mm" }}</p>
 
   <mat-form-field>
     <mat-label class="flex flex-col">
@@ -31,8 +33,9 @@
     <input matInput type="number" formControlName="persons">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit">Book</button>
+  <div class="flex justify-between w-full">
+    <button mat-raised-button color="warn" type="button" (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Book</button>
 
-  <button mat-raised-button color="warn" class="!absolute !left-4 !bottom-4" type="button"
-    (click)="onNoClick()">Cancel</button>
+  </div>
 </form>

@@ -6,9 +6,15 @@ import { bookingSuccessGuard } from './booking-success.guard';
 import { adminGuardGuard } from './guards/admin-guard.guard';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
+import { TablesComponent } from './components/tables/tables.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, data: { name: 'Home' } },
+  {
+    path: 'tables',
+    component: TablesComponent,
+    data: { name: 'Tables' },
+  },
   { path: 'login', component: AdminLoginComponent, data: { name: 'Login' } },
   {
     path: 'admin',

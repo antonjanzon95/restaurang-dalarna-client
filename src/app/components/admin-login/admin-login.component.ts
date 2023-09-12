@@ -20,11 +20,8 @@ export class AdminLoginComponent {
   user$ = this.store.select(selectUser);
   isSignUp = false;
   userForm: FormGroup = this.formBuilder.group({
-    email: ['', Validators.compose([Validators.required, Validators.email])],
-    password: [
-      '',
-      Validators.compose([Validators.required, Validators.minLength(8)]),
-    ],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
     isAdmin: [false],
   });
 
@@ -63,9 +60,21 @@ export class AdminLoginComponent {
         this.formBuilder.control('', [Validators.required])
       );
       this.userForm.setValidators(passwordsMatchValidator);
+      this.userForm
+        .get('email')
+        ?.setValidators(
+          Validators.compose([Validators.required, Validators.email])
+        );
+      this.userForm
+        .get('password')
+        ?.setValidators(
+          Validators.compose([Validators.required, Validators.minLength(8)])
+        );
     } else {
       this.userForm.removeControl('repeatPassword');
       this.userForm.clearValidators();
+      this.userForm.get('email')?.setValidators(Validators.required);
+      this.userForm.get('password')?.setValidators(Validators.required);
     }
 
     this.userForm.reset();

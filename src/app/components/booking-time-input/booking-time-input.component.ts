@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { Store } from '@ngrx/store';
@@ -11,7 +11,7 @@ import { BookingsActions } from 'src/app/store/bookings/bookings.actions';
   styleUrls: ['./booking-time-input.component.css'],
   // providers: [{ provide: MAT_DATE_LOCALE, useValue: 'sv-SE' }],
 })
-export class BookingTimeInputComponent {
+export class BookingTimeInputComponent implements OnInit {
   constructor(
     private store: Store<IAppState>,
     private dateAdapter: DateAdapter<Date>
@@ -22,6 +22,15 @@ export class BookingTimeInputComponent {
   date = new FormControl(new Date()); // Vid ändring sätts ett Date-objekt
 
   handleInputChangeEvent() {
+    this.store.dispatch(
+      BookingsActions.setTime({
+        time: Number(this.time.value),
+        newDate: this.date.value,
+      })
+    );
+  }
+
+  ngOnInit(): void {
     this.store.dispatch(
       BookingsActions.setTime({
         time: Number(this.time.value),

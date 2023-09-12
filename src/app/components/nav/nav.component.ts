@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { routes } from 'src/app/app-routing.module';
 import { IAppState } from 'src/app/store/app.state';
 import { selectUser } from 'src/app/store/user/user.selector';
-import { MyBookingsComponent } from '../my-bookings/my-bookings.component';
 
 @Component({
   selector: 'app-nav',
@@ -24,17 +23,19 @@ export class NavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.destroy$ = this.user$.subscribe((user) => {
-      if (user) {
+      if (user && user?.isAdmin) {
         this.navRoutes = routes.filter(
           (route) => route.path !== 'booking-success' && route.path !== 'login'
         );
-      } else {
+      } else if (user && !user.isAdmin) {
         this.navRoutes = routes.filter(
           (route) =>
             route.path !== 'booking-success' &&
             route.path !== 'login' &&
-            route.path !== 'bookings'
+            route.path !== 'admin'
         );
+      } else {
+        this.navRoutes = routes.filter((route) => route.path === '');
       }
     });
   }

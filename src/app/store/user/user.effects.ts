@@ -4,17 +4,25 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UserActions } from './user.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class userEffects {
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(
+    private actions$: Actions,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   loginUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.loginUser),
       switchMap(({ email, password }) =>
         this.userService.loginUser(email, password).pipe(
-          map((response) => UserActions.loginUserSuccess({ user: response })),
+          map((response) => {
+            this.router.navigateByUrl('');
+            return UserActions.loginUserSuccess({ user: response });
+          }),
           catchError((error: HttpErrorResponse) =>
             of(UserActions.loginUserFailure({ error: error.error.message }))
           )

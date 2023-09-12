@@ -15,14 +15,14 @@ export interface IBookingsState {
   latestBooking: IBooking | undefined;
 }
 
-const dummyLatestBooking: IBooking = {
-  email: 'fdsafdsa',
-  firstName: 'fdsafda',
-  lastName: 'ghghgf',
-  persons: 4,
-  tableNumber: 4,
-  time: formatDate(18),
-};
+// const dummyLatestBooking: IBooking = {
+//   email: 'fdsafdsa',
+//   firstName: 'fdsafda',
+//   lastName: 'ghghgf',
+//   persons: 4,
+//   tableNumber: 4,
+//   time: formatDate(18),
+// };
 
 export const initialState: IBookingsState = {
   bookings: [],
@@ -32,7 +32,7 @@ export const initialState: IBookingsState = {
   getBookingsStatus: Status.Idle,
   makeBookingStatus: Status.Idle,
   selectedTime: formatDate(18),
-  latestBooking: dummyLatestBooking,
+  latestBooking: undefined,
 };
 
 export const BookingsReducer = createReducer(
@@ -116,7 +116,7 @@ export const BookingsReducer = createReducer(
     };
   }),
   on(BookingsActions.setCurrentBookingWithDetails, (state, action) => {
-    return {...state, currentBooking: action.bookingDetails}
+    return { ...state, currentBooking: action.bookingDetails };
   }),
   on(BookingsActions.resetCurrentBooking, (state) => ({
     ...state,
@@ -136,7 +136,7 @@ export const BookingsReducer = createReducer(
   on(BookingsActions.makeBookingSuccess, (state, { booking }) => ({
     ...state,
     error: null,
-    currentBooking: booking,
+    latestBooking: booking,
     makeBookingStatus: Status.Success,
   })),
 
@@ -172,14 +172,13 @@ export const BookingsReducer = createReducer(
   on(BookingsActions.updateBookingFailure, (state, { error }) => ({
     ...state,
     error,
-    makeBookingStatus: Status.Error
+    makeBookingStatus: Status.Error,
   })),
 
   on(BookingsActions.updateBookingSuccess, (state) => ({
     ...state,
     error: null,
     makeBookingStatus: Status.Success,
-
   })),
 
   // Reset status

@@ -22,10 +22,7 @@ import { BookingsOverviewComponent } from './components/bookings-overview/bookin
 import { BookingsTableComponent } from './components/bookings-table/bookings-table.component';
 import { BookingInformationComponent } from './components/booking-information/booking-information.component';
 import { DeleteCheckComponent } from './components/delete-check/delete-check.component';
-import { environment } from 'src/environments/environment.development';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+// import { environment } from 'src/environments/environment.development';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { userEffects } from './store/user/user.effects';
 import { userReducer } from './store/user/user.reducer';
@@ -83,9 +80,6 @@ registerLocaleData(localeSv);
     FormsModule,
     SharedMaterialModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFireStorageModule,
     BrowserAnimationsModule,
   ],
   providers: [DatePipe, { provide: LOCALE_ID, useValue: 'sv-SE' }],

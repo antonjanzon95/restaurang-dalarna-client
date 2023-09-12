@@ -1,4 +1,21 @@
-<app-bookings-overview />
-<h2 class="block text-center text-6xl">Boka bord</h2>
-<app-booking-time-input />
-<app-tables></app-tables>
+<section class="w-screen flex justify-around pt-20">
+  <div class="flex flex-col items-center justify-center gap-4">
+    <h1 class="text-start text-6xl font-semibold">Restaurang Dalarna</h1>
+    <p class="max-w-[527px] text-xl">Step into a world where the elegance of equestrian charm meets culinary excellence.
+      <br /> At
+      Restaurang Dalarna, we celebrate the majestic spirit of the horse, an emblem of grace and strength. <br /> Our
+      décor,
+      inspired by the rustic beauty of stables and the open meadows, sets the stage for a dining experience that's both
+      cozy and grand.
+    </p>
+    <ng-container *ngIf="user$ | async; else notLoggedIn">
+      <a routerLink="/tables" mat-raised-button class="!bg-red-600 !px-8 !py-6 !text-slate-50 text-xl">Book a
+        table</a>
+    </ng-container>
+    <ng-template #notLoggedIn>
+      <a routerLink="/login" mat-raised-button class="!bg-red-600 !px-8 !py-6 !text-slate-50 text-xl">Login</a>
+    </ng-template>
+
+  </div>
+  <img src="../../../assets/dala 1.svg" alt="Dala horse">
+</section>

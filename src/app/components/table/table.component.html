@@ -1,2 +1,3 @@
 <p>Bord #{{table?.tableNumber}}</p>
-<p>{{table?.isBooked ? 'Bokad' : ''}}</p>
+<img *ngIf="table?.isBooked" src="../../../assets/BOOKED-9-12-2023.png" width="100" height="auto" alt="Booked stamp"
+  class="absolute bottom-4 right-4 -rotate-12" />
