@@ -22,9 +22,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./booking-form.component.css'],
 })
 export class BookingFormComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
   selectedTime = '';
-
+  private destroy$ = new Subject<void>();
   constructor(
     private store: Store<IAppState>,
     @Inject(MAT_DIALOG_DATA) public data: any,

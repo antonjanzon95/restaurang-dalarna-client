@@ -3,7 +3,7 @@
   <div class="flex gap-8">
     <mat-form-field>
       <mat-label>Month</mat-label>
-      <mat-select (selectionChange)="fetchBookingsByMonth($event)">
+      <mat-select (selectionChange)="fetchBookingsByMonth($event)" [value]="selected">
         <mat-option *ngFor="let month of months; let index = index" [value]="index">
           {{month}}
         </mat-option>
