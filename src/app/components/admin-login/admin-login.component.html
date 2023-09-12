@@ -1,5 +1,5 @@
 <form [formGroup]="userForm" (submit)="onSubmit(userForm)"
-  class="flex flex-col gap-6 w-[300px] mx-auto justify-center items-center p-4">
+  class="flex flex-col gap-6 w-[300px] mx-auto justify-center items-center p-8 formstyle">
   <h2 class="text-center font-medium text-2xl">{{ isSignUp ? 'Sign Up' : 'Log In' }}</h2>
   <mat-form-field>
     <mat-label>
@@ -30,5 +30,4 @@
     <button (click)="toggleSignUp()" type="button" class="text-blue-800 font-medium">
       {{ isSignUp ? 'Log in' : 'Sign up' }}</button>
   </div>
-  <p *ngIf="user$ | async as user">{{ user | json }}</p>
 </form>

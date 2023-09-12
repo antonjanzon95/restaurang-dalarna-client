@@ -21,6 +21,7 @@ export class BookingsTableComponent {
     'persons',
     'tableNumber',
   ];
+  loading$ = this.store.select((state) => state.bookings.getBookingsStatus);
 
   constructor(private store: Store<IAppState>) {}
 

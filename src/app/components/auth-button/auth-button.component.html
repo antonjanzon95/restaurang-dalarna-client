@@ -1,11 +1,11 @@
 <div class="absolute top-6 right-6">
   <ng-container *ngIf="user$ | async; else login">
-    <button class="hover:cursor-pointer hover:text-teal-500 transition-all duration-300 text-2xl"
+    <button class="hover:cursor-pointer hover:text-red-400 transition-all duration-300 text-2xl"
       (click)="logout()">Logout</button>
   </ng-container>
 
   <ng-template #login>
     <a routerLink="/login"
-      class="hover:cursor-pointer hover:text-teal-500 transition-all duration-300 text-2xl">Login</a>
+      class="hover:cursor-pointer hover:text-red-400 transition-all duration-300 text-2xl">Login</a>
   </ng-template>
 </div>

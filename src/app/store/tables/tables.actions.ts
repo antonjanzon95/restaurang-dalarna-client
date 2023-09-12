@@ -12,4 +12,6 @@ export const TablesActions = {
     '[Booking Modal] Get Tables Success',
     props<{ tables: ITable[] }>()
   ),
+  setLoading: createAction('[Effects] Set Status Loading'),
+  setSuccess: createAction('[Effects] Set Status Success'),
 };

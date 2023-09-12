@@ -13,6 +13,7 @@ import { BookingFormComponent } from '../booking-form/booking-form.component';
 })
 export class TablesComponent implements OnInit {
   tables$ = this.store.select(selectAllTables);
+  loading$ = this.store.select((state) => state.tables.status);
 
   constructor(private store: Store<IAppState>, private dialog: MatDialog) {}
 

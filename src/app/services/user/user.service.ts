@@ -19,25 +19,34 @@ export class UserService {
   ) {
     if (!isAdmin)
       // User
-      return this.http.post<IUserInfo>('http://localhost:3000/users/create', {
+      return this.http.post<IUserInfo>(
+        'https://restaurang-dalarna-server-production.up.railway.app/users/create',
+        {
+          email,
+          password,
+          repeatPassword,
+        }
+      );
+
+    // Admin
+    return this.http.post<IUserInfo>(
+      'https://restaurang-dalarna-server-production.up.railway.app/admin/create',
+      {
         email,
         password,
         repeatPassword,
-      });
-
-    // Admin
-    return this.http.post<IUserInfo>('http://localhost:3000/admin/create', {
-      email,
-      password,
-      repeatPassword,
-    });
+      }
+    );
   }
 
   loginUser(email: string, password: string) {
-    return this.http.post<IUserInfo>('http://localhost:3000/users/login', {
-      email,
-      password,
-    });
+    return this.http.post<IUserInfo>(
+      'https://restaurang-dalarna-server-production.up.railway.app/users/login',
+      {
+        email,
+        password,
+      }
+    );
   }
 
   isAdmin() {

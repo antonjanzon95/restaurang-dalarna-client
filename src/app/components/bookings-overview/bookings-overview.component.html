@@ -1,5 +1,5 @@
-<section class="flex flex-col items-center">
-  <ng-container *ngIf="bookings$ | async as bookings">
+<section class="flex flex-col items-center gap-6">
+  <ng-container *ngIf="bookings$ | async as bookings; else loading">
     <ng-container *ngIf="currentBooking$ | async as booking; else bookingsTable">
       <app-booking-information [currentBooking]="booking"></app-booking-information>
     </ng-container>
@@ -8,4 +8,7 @@
       <app-bookings-table [bookings]="bookings" [isAdmin]="true"></app-bookings-table>
     </ng-template>
   </ng-container>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
 </section>

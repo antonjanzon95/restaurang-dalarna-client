@@ -35,7 +35,9 @@ export class NavComponent implements OnInit, OnDestroy {
             route.path !== 'admin'
         );
       } else {
-        this.navRoutes = routes.filter((route) => route.path === '');
+        this.navRoutes = routes.filter(
+          (route) => route.path === '' || route.path === 'menu'
+        );
       }
     });
   }

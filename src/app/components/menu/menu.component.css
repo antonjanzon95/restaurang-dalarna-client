@@ -1,0 +1,21 @@
+.menu {
+  background-color: #f8f3db;
+  margin: 0 auto;
+  width: 60%;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.menu-item {
+  padding: 10px 0;
+  border-bottom: 1px dashed #ddd;
+}
+.menu-item:last-child {
+  border-bottom: none;
+}
+.dish-name {
+  font-weight: bold;
+}
+.dish-description {
+  color: #777;
+}

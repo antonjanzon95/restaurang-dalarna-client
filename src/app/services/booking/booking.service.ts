@@ -12,22 +12,27 @@ export class BookingService {
   constructor(private http: HttpClient, private store: Store<IAppState>) {}
 
   getTables(time: string) {
-    return this.http.post<ITable[]>('http://localhost:3000/tables', { time });
+    return this.http.post<ITable[]>(
+      'https://restaurang-dalarna-server-production.up.railway.app/tables',
+      { time }
+    );
   }
 
   getBookings() {
-    return this.http.get<IBookingResponse[]>('http://localhost:3000/bookings');
+    return this.http.get<IBookingResponse[]>(
+      'https://restaurang-dalarna-server-production.up.railway.app/bookings'
+    );
   }
 
   getBookingsByUserId(userId: string) {
     return this.http.get<IBookingResponse[]>(
-      `http://localhost:3000/bookings/${userId}`
+      `https://restaurang-dalarna-server-production.up.railway.app/bookings/${userId}`
     );
   }
 
   getBookingsByDate(date: string) {
     return this.http.post<IBookingResponse[]>(
-      'http://localhost:3000/bookings/day',
+      'https://restaurang-dalarna-server-production.up.railway.app/bookings/day',
       {
         date,
       }
@@ -37,7 +42,7 @@ export class BookingService {
   getBookingsByMonth(monthNumber: number) {
     console.log(monthNumber);
     return this.http.post<IBookingResponse[]>(
-      'http://localhost:3000/bookings/month',
+      'https://restaurang-dalarna-server-production.up.railway.app/bookings/month',
       {
         monthNumber,
       }
@@ -46,7 +51,7 @@ export class BookingService {
 
   newBooking(bookingDetails: IBooking) {
     return this.http.post<IBookingResponse>(
-      'http://localhost:3000/bookings/new',
+      'https://restaurang-dalarna-server-production.up.railway.app/bookings/new',
       {
         bookingDetails,
       }
@@ -55,13 +60,17 @@ export class BookingService {
 
   deleteBooking(bookingId: string) {
     return this.http.delete<{ deletedId: string }>(
-      `http://localhost:3000/bookings/delete/${bookingId}`
+      `https://restaurang-dalarna-server-production.up.railway.app/bookings/delete/${bookingId}`
     );
   }
 
   updateBooking(bookingDetails: IBookingResponse) {
-    return this.http.put<{ message: string, success: boolean; body: IBookingResponse }>(
-      'http://localhost:3000/bookings/update',
+    return this.http.put<{
+      message: string;
+      success: boolean;
+      body: IBookingResponse;
+    }>(
+      'https://restaurang-dalarna-server-production.up.railway.app/bookings/update',
       bookingDetails
     );
   }

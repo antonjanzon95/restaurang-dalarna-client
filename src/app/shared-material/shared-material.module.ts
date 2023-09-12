@@ -14,7 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [],
   imports: [
@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatListModule,
     MatIconModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatDatepickerModule,
@@ -49,6 +50,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatListModule,
     MatIconModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class SharedMaterialModule {}

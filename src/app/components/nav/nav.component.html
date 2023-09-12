@@ -1,7 +1,7 @@
 <nav>
   <ul class="flex gap-8">
     <li *ngFor="let route of navRoutes" [routerLink]="route.path"
-      class="hover:cursor-pointer hover:text-teal-500 transition-all duration-300 text-2xl">
+      class="hover:cursor-pointer hover:text-red-400 transition-all duration-300 text-2xl">
       {{route.data?.['name']}}</li>
   </ul>
 </nav>

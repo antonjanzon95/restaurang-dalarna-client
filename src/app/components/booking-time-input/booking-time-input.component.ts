@@ -18,6 +18,7 @@ export class BookingTimeInputComponent implements OnInit {
   ) {
     this.dateAdapter.setLocale('sv-SE');
   }
+  loading$ = this.store.select((state) => state.bookings.getBookingsStatus);
   time = new FormControl(18);
   date = new FormControl(new Date()); // Vid ändring sätts ett Date-objekt
 

@@ -1,3 +1,7 @@
-<div *ngIf="userBookings$ | async as userBookings">
+<ng-container *ngIf="userBookings$ | async as userBookings; else loading">
   <app-bookings-table [bookings]="userBookings" [isAdmin]="false"></app-bookings-table>
-</div>
+</ng-container>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

@@ -1,11 +1,15 @@
 <section class="flex flex-col justify-center items-center gap-8">
-  <h2 class="block text-6xl">Boka bord</h2>
   <app-booking-time-input />
-  <div class="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 place-items-center mx-auto gap-8 relative"
-    *ngIf="tables$ | async as tables">
-    <app-table *ngFor="let table of tables"
-      class="w-72 border-2 rounded-lg h-[150px] relative grid place-items-center transition-all duration-300 text-slate-50"
-      [class]="table.isBooked ? 'bg-teal-900 cursor-default' : 'bg-teal-500 cursor-pointer hover:bg-teal-700'"
-      [table]="table" (click)="!table.isBooked && openDialog(table.tableNumber)"></app-table>
-  </div>
+  <ng-container *ngIf="(loading$ | async) === 'SUCCESS'; else loading">
+    <div class="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 place-items-center mx-auto gap-8 relative"
+      *ngIf="tables$ | async as tables">
+      <app-table *ngFor="let table of tables"
+        class="w-72 border-2 rounded-lg h-[150px] relative grid place-items-center transition-all duration-300 text-slate-50"
+        [class]="table.isBooked ? 'bg-teal-900 cursor-default' : 'bg-teal-500 cursor-pointer hover:bg-teal-700'"
+        [table]="table" (click)="!table.isBooked && openDialog(table.tableNumber)"></app-table>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
 </section>

@@ -8,10 +8,8 @@ import { Status } from 'src/app/models/Status';
 export interface ITablesState {
   tables: ITable[] | null;
   error: string | null;
-  status: Status
+  status: Status;
 }
-
-
 
 export const initialState: ITablesState = {
   tables: null,
@@ -23,17 +21,25 @@ export const tablesReducer = createReducer(
   initialState,
   on(TablesActions.getTables, (state) => ({
     ...state,
-    status: Status.Pending
+    status: Status.Pending,
   })),
   on(TablesActions.getTablesFailure, (state, { error }) => ({
     ...state,
     error,
-    status: Status.Error
+    status: Status.Error,
   })),
   on(TablesActions.getTablesSuccess, (state, { tables }) => ({
     ...state,
     error: null,
     tables: tables,
-    status: Status.Success
+    status: Status.Success,
+  })),
+  on(TablesActions.setLoading, (state) => ({
+    ...state,
+    status: Status.Pending,
+  })),
+  on(TablesActions.setSuccess, (state) => ({
+    ...state,
+    status: Status.Success,
   }))
 );

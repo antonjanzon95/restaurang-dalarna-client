@@ -39,6 +39,7 @@ import localeSv from '@angular/common/locales/sv';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
 import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
 import { ModifyBookingComponent } from './components/modify-booking/modify-booking.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 registerLocaleData(localeSv);
 
@@ -66,6 +67,7 @@ registerLocaleData(localeSv);
     AuthButtonComponent,
     MyBookingsComponent,
     ModifyBookingComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

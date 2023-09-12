@@ -1,5 +1,9 @@
-<ng-container *ngIf="bookings$ | async as bookings">
+<ng-container *ngIf="bookings$ | async as bookings; else loading">
   <div *ngFor="let booking of bookings">
     <p>{{booking.firstName}}</p>
   </div>
 </ng-container>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
